@@ -24,10 +24,7 @@ var app = {
         this.bindEvents();
         setInterval(app.timedThings, app.TIMER_VALUE);
     },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
+
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
@@ -43,15 +40,18 @@ var app = {
 
     },
 
-    __log : function(message, doAlert) {
-        console.log(message);
-        if(doAlert) {
-            alert(message);
-        }
+    __alert : function(message) {
+        this.logDebug(message);
+        alert(message);
+    },
+
+    logDebug: function(message) {
+        var debugDOM = document.getElementById("debug");
+        debugDOM.innerHTML = message + "\n" + debugDOM.innerHTML;
     },
 
     logError: function(message) {
-        this.__log(message, true);
+        this.__alert(message, true);
     }
 };
 

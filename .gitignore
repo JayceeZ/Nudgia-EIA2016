@@ -1,2 +1,3 @@
-.gitignore
 .idea/
+/Nudgia/platforms/*/
+/Nudgia/plugins/*/
