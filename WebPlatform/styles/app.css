@@ -1,0 +1,32 @@
+html, body{
+    height:100%;
+}
+
+#app-content{
+    margin:0;
+    height:100%;
+}
+
+#app-content > div {
+    height:100%;
+}
+
+.fill-height{
+    height:100%;
+}
+
+
+
+
+.popup-timestamp{
+    text-align: center;
+}
+
+.popup-alert{
+    text-align: center;
+    color: red;
+}
+
+.popup-picture{
+    cursor:pointer;
+}
