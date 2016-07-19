@@ -54,20 +54,24 @@ window.MapContainer = React.createClass({
       this.focusOnFeatureGroup(this.currentMarkers);
     },
     focusOnPicture:function(pictureId){
-
-      if(!zoomLevel)
-        zoomLevel = 19;
-      //this.map.fitBounds(featureGroup.getBounds(), {paddingTopLeft: [405, 100], maxZoom: zoomLevel});
+      var marker = null;
+      this.currentMarkers.eachLayer(function(layer){
+        if(layer.pictureId == pictureId)
+          marker = layer;
+      });
+      var focus = L.featureGroup().addLayer(marker);
+      this.focusOnFeatureGroup(focus,18);
+      marker.openPopup();
     },
     focusOnFeatureGroup:function(featureGroup,zoomLevel){
       if(!featureGroup || layerGroupCount(featureGroup) == 0) return;
       if(!zoomLevel)
         zoomLevel = 19;
-      this.map.fitBounds(featureGroup.getBounds(), {paddingTopLeft: [0, 0], maxZoom: zoomLevel});
+      this.map.fitBounds(featureGroup.getBounds(), {paddingTopLeft: [0, 100], maxZoom: zoomLevel});
     },
     render:function(){
       return(
-        <div id="map" style={{height:"100%",width:"100%"}}></div>
+        <div id="map" style={{height:"100%",width:"80%",display:"inline-block"}}></div>
       )
     }
 });
@@ -84,6 +88,7 @@ function buildMarker(picId, picData){
   var iconHtml = '<div><img class="marker-icon" src="'+iconUrl+'" width="100%" ></div>';
   marker.setIcon(buildIcon(ICON_SIZE,iconHtml));
   marker.bindPopup(buildPopup(picId,picData));
+  marker.pictureId = picId;
   return marker;
 }
 
