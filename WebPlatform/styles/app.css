@@ -30,3 +30,18 @@ html, body{
 .popup-picture{
     cursor:pointer;
 }
+
+.modal{
+    max-height:80%;
+}
+
+.modal-picture{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.modal-buttons-container img{
+    margin:10px 5px;
+    cursor:pointer;
+}
