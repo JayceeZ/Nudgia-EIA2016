@@ -3,6 +3,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-camerapicturebackground/www/CameraPictureBackground.js",
         "id": "cordova-plugin-camerapicturebackground.CameraPictureBackground",
+        "pluginId": "cordova-plugin-camerapicturebackground",
         "clobbers": [
             "window.plugins.CameraPictureBackground"
         ]

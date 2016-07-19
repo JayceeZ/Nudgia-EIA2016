@@ -17,42 +17,43 @@
  * under the License.
  */
 var app = {
-    TIMER_VALUE: 1000,
-    deviceready: true,
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-        setInterval(app.timedThings, app.TIMER_VALUE);
-    },
+  TIMER_VALUE: 1000,
+  deviceready: true,
+  // Application Constructor
+  initialize: function () {
+    this.bindEvents();
+    setInterval(app.timedThings, app.TIMER_VALUE);
+  },
 
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
+  bindEvents: function () {
+    document.addEventListener('deviceready', this.onDeviceReady, false);
+  },
 
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-        app.deviceready = true;
-        geolocation.watchLocation();
-    },
+  onDeviceReady: function () {
+    app.receivedEvent('deviceready');
+    app.deviceready = true;
+    geolocation.watchLocation();
+  },
 
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
+  // Update DOM on a Received Event
+  receivedEvent: function (id) {
+    var thresholdSliderDOM = document.getElementById("threshold");
+    thresholdSliderDOM.addEventListener('change', picture.onThresholdChange);
+  },
 
-    },
+  __alert: function (message) {
+    this.logDebug(message);
+    alert(message);
+  },
 
-    __alert : function(message) {
-        this.logDebug(message);
-        alert(message);
-    },
+  logDebug: function (message) {
+    var debugDOM = document.getElementById("debug");
+    debugDOM.innerHTML = message + "\n" + debugDOM.innerHTML;
+  },
 
-    logDebug: function(message) {
-        var debugDOM = document.getElementById("debug");
-        debugDOM.innerHTML = message + "\n" + debugDOM.innerHTML;
-    },
-
-    logError: function(message) {
-        this.__alert(message, true);
-    }
+  logError: function (message) {
+    this.__alert(message, true);
+  }
 };
 
 app.initialize();

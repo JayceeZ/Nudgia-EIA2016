@@ -43,10 +43,14 @@
                 <pre id="locationdata">
                 </pre>
             </p>
+            Threshold (<span id="thresholdValue"></span>):
+            <br /><input type="range" name="threshold" id="threshold" step="0.1" value="1" min="0" max="20" style="width: 100%;" data-highlight="true" />
             <h2>Picture</h2>
-            <img id="picture" class="picture" />
+            <img id="picture" class="picture" alt="No picture yet" />
         </div>
-        <pre id="debug" class="debug"></pre>
+        <div class="debug">
+            <pre id="debug"></pre>
+        </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/geolocation.js"></script>
         <script type="text/javascript" src="js/picture.js"></script>

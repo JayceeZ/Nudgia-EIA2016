@@ -15,13 +15,26 @@
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-camerapicturebackground": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
     "dependent_plugins": {},
-    "modules": [],
+    "modules": [
+        {
+            "file": "plugins/cordova-plugin-camerapicturebackground/www/CameraPictureBackground.js",
+            "id": "cordova-plugin-camerapicturebackground.CameraPictureBackground",
+            "pluginId": "cordova-plugin-camerapicturebackground",
+            "clobbers": [
+                "window.plugins.CameraPictureBackground"
+            ]
+        }
+    ],
     "plugin_metadata": {
         "cordova-plugin-compat": "1.0.0",
         "cordova-plugin-geolocation": "2.2.0",
-        "cordova-plugin-whitelist": "1.2.2"
+        "cordova-plugin-whitelist": "1.2.2",
+        "cordova-plugin-camerapicturebackground": "0.0.3"
     }
 }

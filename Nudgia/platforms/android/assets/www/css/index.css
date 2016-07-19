@@ -24,18 +24,21 @@ body {
     height: 100%;
     width: 100%;
     margin: 0;
+    overflow: hidden;
 }
 
 /* Portrait layout (default) */
 .app {
-    height: 80%;                   /* text area height */
+    min-height: 80%;                   /* text area height */
+    max-height: 100%;
     text-align: center;
+    overflow: auto;
 }
 
 .debug {
-    height: 20%;                   /* text area height */
+    max-height: 20%;                   /* text area height */
     text-align: left;
-    overflow-y: auto;
+    overflow: auto;
 }
 
 /* Landscape layout (with min-width) */

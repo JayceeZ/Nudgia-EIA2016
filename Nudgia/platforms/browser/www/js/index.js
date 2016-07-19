@@ -17,50 +17,43 @@
  * under the License.
  */
 var app = {
-    TIMER_VALUE: 1000,
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-        if(geolocation) {
-            setInterval(this.timedThings, app.TIMER_VALUE);
-        } else {
-            this.logError("Location module cannot be found");
-        }
-    },
+  TIMER_VALUE: 1000,
+  deviceready: true,
+  // Application Constructor
+  initialize: function () {
+    this.bindEvents();
+    setInterval(app.timedThings, app.TIMER_VALUE);
+  },
 
-    timedThings : function() {
-        geolocation.getLocation();
-    },
+  bindEvents: function () {
+    document.addEventListener('deviceready', this.onDeviceReady, false);
+  },
 
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
+  onDeviceReady: function () {
+    app.receivedEvent('deviceready');
+    app.deviceready = true;
+    geolocation.watchLocation();
+  },
 
-    },
+  // Update DOM on a Received Event
+  receivedEvent: function (id) {
+    var thresholdSliderDOM = document.getElementById("threshold");
+    thresholdSliderDOM.addEventListener('change', picture.onThresholdChange);
+  },
 
-    __log : function(message, doAlert) {
-        console.log(message);
-        if(doAlert) {
-            alert(message);
-        }
-    },
+  __alert: function (message) {
+    this.logDebug(message);
+    alert(message);
+  },
 
-    logError: function(message) {
-        this.__log(message, true);
-    }
+  logDebug: function (message) {
+    var debugDOM = document.getElementById("debug");
+    debugDOM.innerHTML = message + "\n" + debugDOM.innerHTML;
+  },
+
+  logError: function (message) {
+    this.__alert(message, true);
+  }
 };
 
 app.initialize();
