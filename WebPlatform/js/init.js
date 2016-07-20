@@ -11,7 +11,7 @@ L.Map = L.Map.extend({
 });
 
 
-ReactDOM.render(<MainApp userPictures={userPictures}/>
+ReactDOM.render(<MainApp userPictures={userPictures} wallPictures={wallPictures}/>
     ,document.getElementById("app-content"));
 
 

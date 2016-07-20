@@ -8,18 +8,23 @@ window.PictureModal = React.createClass({
     if(this.props.pictureId){
       content =
         <div style={{"text-align":"center"}}>
-          <h5>{this.props.userPictures[this.props.pictureId].timestamp}</h5>
+          <h5 style={{"margin-top":"0"}}>{this.props.userPictures[this.props.pictureId].timestamp}</h5>
           <div>
             <img className="modal-picture"
                  src={this.props.userPictures[this.props.pictureId].url}
                  style={{width:this.props.windowHeight*50/100}}
             />
           </div>
-          <span className="modal-buttons-container">
-            <img src="styles/images/facebookButton.png" />
-            <img src="styles/images/twitterButton.png" />
-            <img src="styles/images/instagramButton.png" />
-          </span>
+          <div className="modal-buttons-container">
+            <div>
+              <img src="styles/images/facebookButton.png" />
+              <img src="styles/images/twitterButton.png" />
+              <img src="styles/images/instagramButton.png" />
+            </div>
+            <div>
+              <Button text="Post on the Wall of Fun" noUppercase={true} color="green" />
+            </div>
+          </div>
         </div>;
     }
     return(

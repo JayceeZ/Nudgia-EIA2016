@@ -29,7 +29,10 @@ window.UserView = React.createClass({
    render:function(){
        return(
            <div className="fill-height">
-             <MapContainer getMapFocus={this.getMapFocus} userPictures={this.props.userPictures} />
+             <div style={{width:"80%", height:"100%",display:"inline-block"}}>
+               <WallOverviewTopBar wallPictures={this.props.wallPictures} />
+               <MapContainer getMapFocus={this.getMapFocus} userPictures={this.props.userPictures} />
+             </div>
              <PicturesViewer userPictures={this.props.userPictures}
                              onPictureClick={this.pictureViewerClick}
              />

@@ -6,6 +6,7 @@
  *         --> text : button text
  *         --> onClick : callback function when button is clicked
  *         --> color : color of the button
+ *         --> noUppercase : if true, button text will not be uppercased
  *         --> style : custom style to add to the button
  *         --> className : additional classname to give to the button
  *         --> iconLeft : button icon left
@@ -18,11 +19,14 @@ window.Button = React.createClass({
         return {id:(this.props.id ? this.props.id : generateID())}
     },
     render:function(){
-        var classname=this.props.className+" waves-effect waves-light btn";
+        var classname=(this.props.className ? this.props.className : "")+" waves-effect waves-light btn";
         if(this.props.color)
             classname += " "+this.props.color;
         if(this.props.disabled)
             classname += " disabled";
+        var style = this.props.style ? this.props.style : {};
+        if(this.props.noUppercase)
+            style["text-transform"] = "none";
         return(
             <a className={classname} onClick={this.props.disabled ? undefined : this.props.onClick} style={this.props.style}>
                 {this.props.iconLeft ? <i class="material-icons left">{this.props.iconLeft}</i> : null}
