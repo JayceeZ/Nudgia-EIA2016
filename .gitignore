@@ -2,3 +2,7 @@
 .idea/
 /Nudgia/platforms/*/
 /Nudgia/plugins/*/
+!/Nudgia/platforms/platforms.json
+!/Nudgia/plugins/android.json
+!/Nudgia/plugins/browser.json
+!/Nudgia/plugins/fetch.json
