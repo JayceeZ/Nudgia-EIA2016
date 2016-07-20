@@ -37,19 +37,17 @@
     </head>
     <body>
         <div class="app">
-            <h1>WARN: Proof of concept test application, not even close to final</h1>
+            <h1>WARN: PoC app for tests</h1>
             <h2>Location</h2>
-            <p>
-                <pre id="locationdata">
-                </pre>
-            </p>
+            <pre id="locationdata"></pre>
             Threshold (<span id="thresholdValue"></span>):
-            <br /><input type="range" name="threshold" id="threshold" step="0.1" value="1" min="0" max="20" style="width: 100%;" data-highlight="true" />
+            <br /><input type="range" name="threshold" id="threshold" step="0.1" value="1" min="0" max="10" style="width: 100%;" data-highlight="true" title=""/>
             <h2>Picture</h2>
-            <img id="picture" class="picture" alt="No picture yet" />
-        </div>
-        <div class="debug">
-            <pre id="debug"></pre>
+            <img id="picture" class="picture" src="" alt="No picture yet" />
+
+            <div class="debug">
+                <pre id="debug"></pre>
+            </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/geolocation.js"></script>

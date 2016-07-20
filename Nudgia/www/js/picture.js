@@ -1,5 +1,5 @@
 var picture = {
-  speed_margin: 10, // 10 default
+  speed_margin: 0.8, // default
   lastSpeed: null,
   alreadyTakenOne: true,
 
@@ -11,7 +11,7 @@ var picture = {
   },
 
   speedInput: function (speed) {
-    app.logDebug("Speed input to picture taker [" + speed + "]");
+    app.logDebug("Speed input to picture taker [" + speed + "] (threshold="+this.speed_margin+")");
     if (this.__shouldTakePhoto()) {
       this.takePicture();
     } else if (speed > this.speed_margin) {
@@ -40,11 +40,12 @@ var picture = {
   },
 
   onThresholdChange: function(evt) {
-    app.logDebug("Changed value to ("+evt.newValue+")");
+    var newValue = evt.currentTarget.value;
+    app.logDebug("Changed value to ("+newValue+")");
     var thresholdValueDOM = document.getElementById("thresholdValue");
     if(thresholdValueDOM) {
-      thresholdValueDOM.innerHTML = evt.currentTarget.value;
-      this.speed_margin = evt.currentTarget.value;
+      thresholdValueDOM.innerHTML = newValue;
+      picture.speed_margin = newValue;
     } else {
       app.logError("No element called thresholdValue");
     }
