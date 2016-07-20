@@ -19,3 +19,16 @@ window.getFormatedText = function(t){
     }
     return text;
 };
+
+window.getSortedPictures = function(pictures){
+    var sorted = [];
+    for(var pic in pictures){
+        var i;
+        for(i = 0; i < sorted.length; i++){
+            if(pictures[pic].score >= sorted[i].score)
+                break;
+        }
+        sorted.splice(i,0,pictures[pic])
+    }
+    return sorted;
+};

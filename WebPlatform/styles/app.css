@@ -15,7 +15,9 @@ html, body{
     height:100%;
 }
 
-
+body{
+    overflow:hidden;
+}
 
 
 .popup-timestamp{
@@ -32,7 +34,7 @@ html, body{
 }
 
 .modal{
-    max-height:80%;
+    max-height:85%;
 }
 
 .modal-picture{

@@ -16,6 +16,7 @@ window.MainApp = React.createClass({
        return(
            <div>
                <UserView userPictures={this.props.userPictures}
+                         wallPictures={this.props.wallPictures}
                          windowHeight={this.state.windowHeight}
                />
            </div>
