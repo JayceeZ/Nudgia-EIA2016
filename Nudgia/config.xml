@@ -23,4 +23,5 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <plugin name="cordova-plugin-camerapicturebackground" spec="https://github.com/an-rahulpandey/cordova-plugin-camerapicturebackground.git" />
 </widget>

@@ -52,6 +52,13 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/cordova-plugin-image-picker/www/imagepicker.js",
+        "id": "cordova-plugin-image-picker.ImagePicker",
+        "clobbers": [
+            "plugins.imagePicker"
+        ]
+    },
+    {
         "file": "plugins/cordova-plugin-device/www/device.js",
         "id": "cordova-plugin-device.device",
         "clobbers": [
@@ -67,6 +74,7 @@ module.exports.metadata =
     "cordova-plugin-camerapicturebackground": "0.0.3",
     "cordova-plugin-background-mode": "0.6.5",
     "de.appplant.cordova.plugin.local-notification": "0.8.4",
+    "cordova-plugin-image-picker": "1.1.1",
     "cordova-plugin-compat": "1.0.0",
     "cordova-plugin-device": "1.1.2",
     "cordova-plugin-app-event": "1.2.0"

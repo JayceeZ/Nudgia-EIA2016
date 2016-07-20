@@ -17,8 +17,8 @@
  * under the License.
  */
 var app = {
+  debug: true,
   TIMER_VALUE: 1000,
-  deviceready: true,
   // Application Constructor
   initialize: function () {
     this.bindEvents();
@@ -31,15 +31,34 @@ var app = {
 
   onDeviceReady: function () {
     app.receivedEvent('deviceready');
-    app.deviceready = true;
+    if(app.debug) {
+      app.populateForDebug();
+    }
+    app.enableBackground();
     geolocation.watchLocation();
+  },
+
+  populateForDebug: function() {
+    var appDOM = document.getElementById("app");
+    appDOM.innerHTML =
+        '<h1>WARN: PoC app for tests</h1>' +
+        '<h2>Location</h2>' +
+        '<pre id="locationdata"></pre>' +
+        'Threshold (<span id="thresholdValue"></span>):' +
+        '<br /><input type="range" name="threshold" id="threshold" step="0.1" value="1" min="0" max="10" style="width: 100%;" data-highlight="true" title=""/> ' +
+        '<h2>Picture</h2> ' +
+        '<img id="picture" class="picture" src="" alt="No picture yet" /> ' +
+        '<div class="debug"> ' +
+        '<pre id="debug"></pre> ' +
+        '</div>';
+
+    var thresholdSliderDOM = document.getElementById("threshold");
+    thresholdSliderDOM.addEventListener('change', picture.onThresholdChange);
   },
 
   // Update DOM on a Received Event
   receivedEvent: function (id) {
-    var thresholdSliderDOM = document.getElementById("threshold");
-    thresholdSliderDOM.addEventListener('change', picture.onThresholdChange);
-    app.enableBackground();
+
   },
 
   enableBackground: function() {
@@ -59,8 +78,10 @@ var app = {
   },
 
   logDebug: function (message) {
-    var debugDOM = document.getElementById("debug");
-    debugDOM.innerHTML = message + "\n" + debugDOM.innerHTML;
+    if(app.debug) {
+      var debugDOM = document.getElementById("debug");
+      debugDOM.innerHTML = message + "\n" + debugDOM.innerHTML;
+    }
   },
 
   logError: function (message) {
