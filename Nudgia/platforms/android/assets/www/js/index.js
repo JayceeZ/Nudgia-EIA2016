@@ -45,7 +45,7 @@ var app = {
   enableBackground: function() {
     cordova.plugins.backgroundMode.setDefaults({
       title: "Nudgia is watching you !",
-      text: "You can display the app clicking me"
+      text: "You can display the app by clicking me"
     });
     cordova.plugins.backgroundMode.enable();
     if(cordova.plugins.backgroundMode.isEnabled()) {
