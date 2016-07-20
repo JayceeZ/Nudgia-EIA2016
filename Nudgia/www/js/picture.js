@@ -51,10 +51,15 @@ var picture = {
     }
   },
 
+  showPicture: function(imgUrl) {
+    app.logDebug("User come to see picture "+imgUrl);
+  },
+
   onSuccess: function (imgUrl) {
     app.logDebug("Picture taken");
     var pictureDataDOM = document.getElementById("picture");
     pictureDataDOM.src = imgUrl;
+    notification.sendNotification(imgUrl);
   }
 
 };

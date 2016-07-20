@@ -1,16 +1,20 @@
 var notification = {
 
-  sendNotification: function(message) {
+  sendNotification: function(pictureId) {
     cordova.plugins.notification.local.schedule({
       id: 1,
-      title: "Production Jour fixe",
-      text: "Duration 1h",
-      firstAt: monday_9_am,
-      every: "week",
+      title: "Hey, I took a picture of you :p",
+      text: "Click me to watch it",
       sound: "file://sounds/reminder.mp3",
       icon: "http://icons.com/?cal_id=1",
-      data: {meetingId: "123#fg8"}
+      data: {pictureId: pictureId}
     });
+    /*
+    cordova.plugins.notification.local.update({
+      id: 10,
+      title: "Meeting in 5 minutes!"
+    });
+    */
   },
 
   addListenerToNotification: function(callback) {

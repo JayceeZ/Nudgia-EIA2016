@@ -39,6 +39,14 @@ var app = {
   receivedEvent: function (id) {
     var thresholdSliderDOM = document.getElementById("threshold");
     thresholdSliderDOM.addEventListener('change', picture.onThresholdChange);
+    app.enableBackground();
+  },
+
+  enableBackground: function() {
+    cordova.plugins.backgroundMode.setDefaults({
+      title: "Nudgia is watching you !",
+      text: "You can display the app by clicking me"
+    });
     cordova.plugins.backgroundMode.enable();
     if(cordova.plugins.backgroundMode.isEnabled()) {
       app.logDebug("Background mode enabled");
