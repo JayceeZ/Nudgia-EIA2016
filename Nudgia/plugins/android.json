@@ -19,6 +19,18 @@
                         {
                             "xml": "<feature name=\"CameraPictureBackground\"><param name=\"android-package\" value=\"me.rahul.plugins.camerapicturebackground.CameraPictureBackground\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"BackgroundMode\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.background.BackgroundMode\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"KeepRunning\" value=\"true\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -69,6 +81,10 @@
                         {
                             "xml": "<service android:enabled=\"true\" android:exported=\"false\" android:name=\"me.rahul.plugins.camerapicturebackground.CameraSurfacePreview\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<service android:name=\"de.appplant.cordova.plugin.background.ForegroundService\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -84,10 +100,16 @@
         },
         "cordova-plugin-camerapicturebackground": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-background-mode": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-device": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     }

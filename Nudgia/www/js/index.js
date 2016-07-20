@@ -39,6 +39,10 @@ var app = {
   receivedEvent: function (id) {
     var thresholdSliderDOM = document.getElementById("threshold");
     thresholdSliderDOM.addEventListener('change', picture.onThresholdChange);
+    cordova.plugins.backgroundMode.enable();
+    if(cordova.plugins.backgroundMode.isEnabled()) {
+      app.logDebug("Background mode enabled");
+    }
   },
 
   __alert: function (message) {
