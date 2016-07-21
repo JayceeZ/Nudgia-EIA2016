@@ -33,6 +33,8 @@ var app = {
     app.receivedEvent('deviceready');
     if(app.debug) {
       app.populateForDebug();
+    }else{
+      gallery.showGallery();
     }
     app.enableBackground();
     geolocation.watchLocation();
@@ -63,7 +65,7 @@ var app = {
 
   enableBackground: function() {
     cordova.plugins.backgroundMode.setDefaults({
-      title: "Nudgia is watching you !",
+      title: "Nudgia's magic is ON !",
       text: "You can display the app by clicking me"
     });
     cordova.plugins.backgroundMode.enable();

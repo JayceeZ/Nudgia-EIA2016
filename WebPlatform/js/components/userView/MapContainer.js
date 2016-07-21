@@ -70,13 +70,19 @@ window.MapContainer = React.createClass({
 
 var greenCarIconUrl = "styles/images/greenCarIcon.png";
 var redCarIconUrl = "styles/images/redCarIcon.png";
+var pokeballIconUrl = "styles/images/pokeballIcon.png";
 var ICON_SIZE = 25;
 
 function buildMarker(picId, picData){
   var marker = L.marker([picData.lat,picData.lon]);
-  var iconUrl = greenCarIconUrl;
-  if(picData.drivingStatus != "good")
+  var iconUrl = "";
+  if(picData.status.type == "driving") {
+    iconUrl = greenCarIconUrl;
+    if(picData.status.detail != "good")
     iconUrl = redCarIconUrl;
+  }
+  else if(picData.status.type = "pokemon")
+    iconUrl = pokeballIconUrl;
   var iconHtml = '<div><img class="marker-icon" src="'+iconUrl+'" width="100%" ></div>';
   marker.setIcon(buildIcon(ICON_SIZE,iconHtml));
   marker.bindPopup(buildPopup(picId,picData));
@@ -100,8 +106,10 @@ function buildPopup(picId,picData){
   var popup = document.createElement('div');
   popup.className = "driver-popup";
   var alert = "";
-  if(picData.drivingStatus != "good")
-    alert = "<li><h6 class='popup-alert'>"+picData.drivingStatus+"</h6></li>";
+  if((picData.status.type == "driving" && picData.status.detail != "good") || (picData.status.type == "pokemon" && picData.status.detail.indexOf("Failing") > -1))
+    alert = "<li><h6 class='popup-alert'>"+picData.status.detail+"</h6></li>";
+  else if(picData.status.type == "pokemon")
+    alert = "<li><h6 class='popup-green-detail'>"+picData.status.detail+"</h6></li>";
   popup.innerHTML = '<ul><li><h6 class="popup-timestamp">'+picData.timestamp+'</h6></li>' +
     '<li><img class="popup-picture" src="'+picData.url+'" height="150px" onClick="onPopupPictureClick('+picId+')"/></li>' + alert +
     '</ul>';

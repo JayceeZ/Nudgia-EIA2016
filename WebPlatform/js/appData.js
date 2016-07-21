@@ -8,29 +8,44 @@ window.userPictures = {
         lat:45.0572652,
         lon:7.6644222,
         url:"userPictures/user1/1.png",
-        drivingStatus:"Hard brake"
+        status:{type:"driving",detail:"Hard brake"}
     },
     "2":{
         timestamp:"19/07/2016 10:42",
         lat:45.0656316,
         lon:7.6906006,
         url:"userPictures/user1/2.jpg",
-        drivingStatus:"good"
+        status:{type:"driving",detail:"good"}
     },
     "3":{
         timestamp:"19/07/2016 11:23",
         lat:45.0632673,
         lon:7.6812879,
         url:"userPictures/user1/3.jpg",
-        drivingStatus:"good"
+        status:{type:"driving",detail:"good"}
     },
     "4":{
         timestamp:"19/07/2016 13:25",
         lat:45.0593266,
         lon:7.6807515,
         url:"userPictures/user1/4.jpg",
-        drivingStatus:"Too fast"
+        status:{type:"driving",detail:"Too fast"}
+    },
+    "41":{
+        timestamp:"19/07/2016 13:25",
+        lat:45.0693266,
+        lon:7.6807515,
+        url:"userPictures/user1/41.jpg",
+        status:{type:"pokemon",detail:"Catching a Pidgey"}
+    },
+    "42":{
+        timestamp:"19/07/2016 13:25",
+        lat:45.0693266,
+        lon:7.6707515,
+        url:"userPictures/user1/42.jpg",
+        status:{type:"pokemon",detail:"Failing to catch a Magikarp"}
     }
+
 };
 
 window.wallPictures = {

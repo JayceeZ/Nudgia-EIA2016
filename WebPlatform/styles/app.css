@@ -19,6 +19,9 @@ body{
     overflow:hidden;
 }
 
+.driver-popup{
+    text-align:center;
+}
 
 .popup-timestamp{
     text-align: center;
@@ -27,6 +30,11 @@ body{
 .popup-alert{
     text-align: center;
     color: red;
+}
+
+.popup-green-detail{
+    text-align: center;
+    color: green;
 }
 
 .popup-picture{
