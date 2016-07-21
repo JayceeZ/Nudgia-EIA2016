@@ -12,7 +12,7 @@ window.PictureModal = React.createClass({
           <div>
             <img className="modal-picture"
                  src={this.props.userPictures[this.props.pictureId].url}
-                 style={{width:this.props.windowHeight*50/100}}
+                 style={{height:this.props.windowHeight*50/100}}
             />
           </div>
           <div className="modal-buttons-container">

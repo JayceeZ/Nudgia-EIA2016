@@ -27,15 +27,31 @@ window.UserView = React.createClass({
       this.state.mapPictureFocus(picId);
     },
    render:function(){
+        var buttonContent = <div className="valign-wrapper"><h5 className="valign">Wall of Fun</h5></div>;
        return(
            <div className="fill-height">
-             <div style={{width:"80%", height:"100%",display:"inline-block"}}>
-               <WallOverviewTopBar wallPictures={this.props.wallPictures} />
+             <div style={{height:"20%","background-color":"#4CAF50"}}>
+               <div className="col s2 valign-wrapper" style={{height:"100%","padding-left":"40px"}}>
+                 <Button text={buttonContent}
+                         color="blue"
+                         onClick={this.props.showWallClick}
+                         style={{height:"80%","margin":"10% 10px"}}/>
+               </div>
+               <div className="col s7" style={{height:"100%","padding":"5px"}}>
+                 <WallOverviewTopBar wallPictures={this.props.wallPictures} showWallClick={this.props.showWallClick} />
+               </div>
+               <div className="col s3" style={{height:"100%"}}>
+
+               </div>
+             </div>
+             <div style={{width:"80%", height:"80%",float:"left"}}>
                <MapContainer getMapFocus={this.getMapFocus} userPictures={this.props.userPictures} />
              </div>
-             <PicturesViewer userPictures={this.props.userPictures}
-                             onPictureClick={this.pictureViewerClick}
-             />
+             <div style={{width:"20%", height:"80%",float:"right"}}>
+               <PicturesViewer userPictures={this.props.userPictures}
+                               onPictureClick={this.pictureViewerClick}
+               />
+             </div>
              <PictureModal userPictures={this.props.userPictures}
                            pictureId={this.state.modalPictureId}
                            getOpen={this.getOpenPictureModal}

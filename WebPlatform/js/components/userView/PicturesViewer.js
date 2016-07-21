@@ -21,7 +21,7 @@ window.PicturesViewer = React.createClass({
         pictures.push(pic);
       }
       return(
-        <div style={{width:"20%",height:"100%",padding:"2px",margin:"0","overflow-y":"auto",display:"inline-block"}}>
+        <div style={{width:"100%",height:"100%",padding:"2px",margin:"0","overflow-y":"auto"}}>
           {pictures}
         </div>
       )

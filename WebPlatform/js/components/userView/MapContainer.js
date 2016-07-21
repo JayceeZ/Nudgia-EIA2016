@@ -2,13 +2,6 @@
  * Created by alexandre on 21/06/16.
  */
 
-var openStreetMap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-  attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-  maxZoom: 20,
-  id: 'traxxs.ol4dhdm1',
-  accessToken: 'pk.eyJ1IjoidHJheHhzIiwiYSI6ImNpajV0eHl4NDAwM253OG0zejB1MWhuczQifQ.XZvLZsm6bio9CjRXnaVPHA'
-});
-
 var googleStreets = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
   maxZoom: 20,
   subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
@@ -25,7 +18,6 @@ var googleTerrain = L.tileLayer('https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z=
 });
 
 var baseMaps = {
-  "OpenStreetMap": openStreetMap,
   "Google Streets": googleStreets,
   "Google Satellite": googleSat,
   "Google Terrain": googleTerrain
@@ -38,7 +30,7 @@ window.MapContainer = React.createClass({
     map:null,
     componentDidMount:function(){
       this.map = L.map('map',{zoomControl:false}).setView([43.62216, 7.00241], 12);
-      openStreetMap.addTo(this.map);
+      googleStreets.addTo(this.map);
       L.control.layers(baseMaps).addTo(this.map);
       L.control.zoom({position:"topright"}).addTo(this.map);
       this.props.getMapFocus(this.focusOnPicture);
@@ -71,7 +63,7 @@ window.MapContainer = React.createClass({
     },
     render:function(){
       return(
-        <div id="map" style={{height:"80%",width:"100%"}}></div>
+        <div id="map" style={{height:"100%",width:"100%"}}></div>
       )
     }
 });
