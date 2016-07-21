@@ -1,5 +1,5 @@
 var picture = {
-  speed_margin: 0.1, // default
+  speed_margin: 0.6, // default
   lastSpeed: null,
   alreadyTakenOne: true,
 
