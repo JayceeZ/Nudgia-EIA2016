@@ -52,7 +52,9 @@ var picture = {
   onSuccess: function (imgUrl) {
     app.logDebug("Picture taken");
     var pictureDataDOM = document.getElementById("picture");
-    pictureDataDOM.src = imgUrl;
+    if(pictureDataDOM) {
+      pictureDataDOM.src = imgUrl;
+    }
     notification.updateNotificationIfexist(imgUrl);
     this.alreadyTakenOne = true;
   },
@@ -64,6 +66,10 @@ var picture = {
 };
 
 var thresholdSliderDOM = document.getElementById("threshold");
-thresholdSliderDOM.value = picture.speed_margin;
+if(thresholdSliderDOM) {
+  thresholdSliderDOM.value = picture.speed_margin;
+}
 var thresholdValueDOM = document.getElementById("thresholdValue");
-thresholdValueDOM.innerHTML = picture.speed_margin;
+if(thresholdValueDOM) {
+  thresholdValueDOM.innerHTML = picture.speed_margin;
+}

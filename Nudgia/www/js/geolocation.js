@@ -27,7 +27,9 @@ var geolocation = {
       picture.speedInput(position.coords.speed);
     }
     var locationDataDOM = document.getElementById("locationdata");
-    locationDataDOM.innerHTML = data;
+    if(locationDataDOM) {
+      locationDataDOM.innerHTML = data;
+    }
   },
 
   onError: function (error) {

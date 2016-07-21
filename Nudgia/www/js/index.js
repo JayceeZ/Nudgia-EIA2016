@@ -45,11 +45,11 @@ var app = {
         '<h2>Location</h2>' +
         '<pre id="locationdata"></pre>' +
         'Threshold (<span id="thresholdValue"></span>):' +
-        '<br /><input type="range" name="threshold" id="threshold" step="0.1" value="1" min="0" max="10" style="width: 100%;" data-highlight="true" title=""/> ' +
-        '<h2>Picture</h2> ' +
-        '<img id="picture" class="picture" src="" alt="No picture yet" /> ' +
-        '<div class="debug"> ' +
-        '<pre id="debug"></pre> ' +
+        '<br /><input type="range" name="threshold" id="threshold" step="0.1" value="1" min="0" max="10" style="width: 100%;" data-highlight="true" title=""/>' +
+        '<h2>Picture</h2>' +
+        '<img id="picture" class="picture" src="" alt="No picture yet" />' +
+        '<div class="debug">' +
+        '<pre id="debug"></pre>' +
         '</div>';
 
     var thresholdSliderDOM = document.getElementById("threshold");
@@ -80,7 +80,9 @@ var app = {
   logDebug: function (message) {
     if(app.debug) {
       var debugDOM = document.getElementById("debug");
-      debugDOM.innerHTML = message + "\n" + debugDOM.innerHTML;
+      if(debugDOM) {
+        debugDOM.innerHTML = message + "\n" + debugDOM.innerHTML;
+      }
     }
   },
 
