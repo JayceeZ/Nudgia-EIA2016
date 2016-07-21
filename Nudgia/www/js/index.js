@@ -19,28 +19,29 @@
 var app = {
   debug: true,
   TIMER_VALUE: 1000,
+  i: 0,
   // Application Constructor
   initialize: function () {
-    this.bindEvents();
-    setInterval(app.timedThings, app.TIMER_VALUE);
+    app.bindEvents();
   },
 
   bindEvents: function () {
-    document.addEventListener('deviceready', this.onDeviceReady, false);
+    window.document.addEventListener('deviceready', app.onDeviceReady, true);
   },
 
   onDeviceReady: function () {
     app.receivedEvent('deviceready');
+    app.enableBackground();
     if(app.debug) {
       app.populateForDebug();
     }
-    app.enableBackground();
     geolocation.watchLocation();
   },
 
   populateForDebug: function() {
     var appDOM = document.getElementById("app");
-    appDOM.innerHTML =
+    if(appDOM) {
+      appDOM.innerHTML =
         '<h1>WARN: PoC app for tests</h1>' +
         '<h2>Location</h2>' +
         '<pre id="locationdata"></pre>' +
@@ -52,8 +53,11 @@ var app = {
         '<pre id="debug"></pre>' +
         '</div>';
 
-    var thresholdSliderDOM = document.getElementById("threshold");
-    thresholdSliderDOM.addEventListener('change', picture.onThresholdChange);
+      var thresholdSliderDOM = window.document.getElementById("threshold");
+      if (thresholdSliderDOM) {
+        thresholdSliderDOM.addEventListener('change', picture.onThresholdChange);
+      }
+    }
   },
 
   // Update DOM on a Received Event
@@ -73,21 +77,23 @@ var app = {
   },
 
   __alert: function (message) {
-    this.logDebug(message);
+    app.logDebug(message);
     alert(message);
   },
 
   logDebug: function (message) {
     if(app.debug) {
-      var debugDOM = document.getElementById("debug");
+      var debugDOM = window.document.getElementById("debug");
+      var timestamp = new Date();
+      app.i += 1;
       if(debugDOM) {
-        debugDOM.innerHTML = message + "\n" + debugDOM.innerHTML;
+        debugDOM.innerHTML = app.i + "# " + timestamp + " - " + message + "\n" + debugDOM.innerHTML;
       }
     }
   },
 
   logError: function (message) {
-    this.__alert(message, true);
+    app.__alert(message, true);
   }
 };
 

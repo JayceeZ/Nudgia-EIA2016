@@ -11,21 +11,21 @@ var picture = {
   },
 
   speedInput: function (speed) {
-    app.logDebug("Speed input to picture taker [" + speed + "] (threshold="+this.speed_margin+")");
-    if (this.__shouldTakePhoto()) {
+    app.logDebug("Speed input to picture taker [" + speed + "] (threshold="+picture.speed_margin+")");
+    if (picture.__shouldTakePhoto()) {
       app.logDebug("Should take picture");
-      if (!this.alreadyTakenOne) {
+      if (!picture.alreadyTakenOne) {
         // If not already taken (limit to only one per event)
-        this.takePicture();
+        picture.takePicture();
       }
-    } else if (parseFloat(speed) > this.speed_margin) {
-      this.alreadyTakenOne = false;
+    } else if (parseFloat(speed) > picture.speed_margin) {
+      picture.alreadyTakenOne = false;
     }
-    this.lastSpeed = parseFloat(speed);
+    picture.lastSpeed = parseFloat(speed);
   },
 
   __shouldTakePhoto: function () {
-    return this.lastSpeed && this.lastSpeed <= this.speed_margin;
+    return picture.lastSpeed && picture.lastSpeed <= picture.speed_margin;
   },
 
   takePicture: function () {
@@ -35,7 +35,7 @@ var picture = {
 
   onThresholdChange: function(evt) {
     var newValue = evt.currentTarget.value;
-    var thresholdValueDOM = document.getElementById("thresholdValue");
+    var thresholdValueDOM = window.document.getElementById("thresholdValue");
     if(thresholdValueDOM) {
       thresholdValueDOM.innerHTML = newValue;
       picture.speed_margin = parseFloat(newValue);
@@ -51,12 +51,12 @@ var picture = {
 
   onSuccess: function (imgUrl) {
     app.logDebug("Picture taken");
-    var pictureDataDOM = document.getElementById("picture");
+    var pictureDataDOM = window.document.getElementById("picture");
     if(pictureDataDOM) {
       pictureDataDOM.src = imgUrl;
     }
     notification.updateNotificationIfexist(imgUrl);
-    this.alreadyTakenOne = true;
+    picture.alreadyTakenOne = true;
   },
 
   onError: function (error) {
@@ -65,11 +65,11 @@ var picture = {
 
 };
 
-var thresholdSliderDOM = document.getElementById("threshold");
+var thresholdSliderDOM = window.document.getElementById("threshold");
 if(thresholdSliderDOM) {
   thresholdSliderDOM.value = picture.speed_margin;
 }
-var thresholdValueDOM = document.getElementById("thresholdValue");
+var thresholdValueDOM = window.document.getElementById("thresholdValue");
 if(thresholdValueDOM) {
   thresholdValueDOM.innerHTML = picture.speed_margin;
 }

@@ -11,7 +11,7 @@ var notification = {
 
   sendNotification: function() {
     app.logDebug("Sending notification");
-    this.notificationId = 1;
+    notification.notificationId = 1;
     window.cordova.plugins.notification.local.schedule({
       id: 1,
       title: this.TAKE_ONE.title,
@@ -22,13 +22,13 @@ var notification = {
 
   updateNotificationIfexist: function() {
     if(this.notificationId) {
-      window.cordova.plugins.notification.local.update({
+      window.cordova.plugins.notification.local.schedule({
         id: this.notificationId,
         title: this.TAKE_MULTIPLES.title,
         text: "Click me to watch them"
       });
     } else {
-      this.sendNotification();
+      notification.sendNotification();
     }
   },
 
