@@ -11,6 +11,16 @@
     <feature name="CameraPictureBackground">
         <param name="android-package" value="me.rahul.plugins.camerapicturebackground.CameraPictureBackground" />
     </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="BackgroundMode">
+        <param name="android-package" value="de.appplant.cordova.plugin.background.BackgroundMode" />
+    </feature>
+    <preference name="KeepRunning" value="true" />
+    <feature name="LocalNotification">
+        <param name="android-package" value="de.appplant.cordova.plugin.localnotification.LocalNotification" />
+    </feature>
     <allow-intent href="market:*" />
     <name>HelloCordova</name>
     <description>

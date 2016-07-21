@@ -1,5 +1,5 @@
 var picture = {
-  speed_margin: 0.8, // default
+  speed_margin: 0.1, // default
   lastSpeed: null,
   alreadyTakenOne: true,
 
@@ -13,48 +13,52 @@ var picture = {
   speedInput: function (speed) {
     app.logDebug("Speed input to picture taker [" + speed + "] (threshold="+this.speed_margin+")");
     if (this.__shouldTakePhoto()) {
-      this.takePicture();
-    } else if (speed > this.speed_margin) {
+      app.logDebug("Should take picture");
+      if (!this.alreadyTakenOne) {
+        // If not already taken (limit to only one per event)
+        this.takePicture();
+      }
+    } else if (parseFloat(speed) > this.speed_margin) {
       this.alreadyTakenOne = false;
     }
-    this.lastSpeed = speed;
+    this.lastSpeed = parseFloat(speed);
   },
 
   __shouldTakePhoto: function () {
-    var condition = this.lastSpeed && this.lastSpeed <= this.speed_margin;
-    if (!this.alreadyTakenOne) {
-      // If not already taken (limit to only one per event)
-      if (condition) {
-        return true;
-      } else {
-        this.alreadyTakenOne = false;
-      }
-    }
-    return false;
+    return this.lastSpeed && this.lastSpeed <= this.speed_margin;
   },
 
   takePicture: function () {
-    this.alreadyTakenOne = true;
     app.logDebug("Taking picture");
     window.plugins.CameraPictureBackground.takePicture(this.onSuccess, this.onError, this.options);
   },
 
   onThresholdChange: function(evt) {
     var newValue = evt.currentTarget.value;
-    app.logDebug("Changed value to ("+newValue+")");
     var thresholdValueDOM = document.getElementById("thresholdValue");
     if(thresholdValueDOM) {
       thresholdValueDOM.innerHTML = newValue;
-      picture.speed_margin = newValue;
+      picture.speed_margin = parseFloat(newValue);
+      app.logDebug("Changed value to ("+picture.speed_margin+")");
     } else {
       app.logError("No element called thresholdValue");
     }
+  },
+
+  showPicture: function(imgUrl) {
+    app.logDebug("User come to see picture "+imgUrl);
   },
 
   onSuccess: function (imgUrl) {
     app.logDebug("Picture taken");
     var pictureDataDOM = document.getElementById("picture");
     pictureDataDOM.src = imgUrl;
+    notification.updateNotificationIfexist(imgUrl);
+    this.alreadyTakenOne = true;
+  },
+
+  onError: function (error) {
+    app.logError(JSON.toString(error));
   }
 
 };
