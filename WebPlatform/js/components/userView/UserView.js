@@ -37,10 +37,10 @@ window.UserView = React.createClass({
                          onClick={this.props.showWallClick}
                          style={{height:"80%","margin":"10% 10px"}}/>
                </div>
-               <div className="col s7" style={{height:"100%","padding":"5px"}}>
+               <div className="col s9" style={{height:"100%","padding":"5px"}}>
                  <WallOverviewTopBar wallPictures={this.props.wallPictures} showWallClick={this.props.showWallClick} />
                </div>
-               <div className="col s3" style={{height:"100%"}}>
+               <div className="col s1" style={{height:"100%"}}>
 
                </div>
              </div>

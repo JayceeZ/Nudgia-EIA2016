@@ -30,7 +30,7 @@ window.WallOverviewTopBar = React.createClass({
           </div>
         </div>
         <div style={{width:"3%",height:"100%",float:"right",padding:"5px 0"}}>
-          <div className="valign-wrapper" style={{width:"100%",height:"100%","background-color":"white"}}>
+          <div className="valign-wrapper" style={{cursor:"pointer",width:"100%",height:"100%","background-color":"white"}}>
             <i className="material-icons valign"  >keyboard_arrow_right</i>
           </div>
         </div>
