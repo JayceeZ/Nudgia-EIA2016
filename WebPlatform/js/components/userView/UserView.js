@@ -27,15 +27,16 @@ window.UserView = React.createClass({
       this.state.mapPictureFocus(picId);
     },
    render:function(){
-        var buttonContent = <div className="valign-wrapper"><h5 className="valign">Wall of Fun</h5></div>;
+        var buttonContent = <div style={{margin:"10px 0"}}>Wall of Fun</div>;
        return(
            <div className="fill-height">
              <div style={{height:"20%","background-color":"#4CAF50"}}>
                <div className="col s2 valign-wrapper" style={{height:"100%","padding-left":"40px"}}>
-                 <Button text={buttonContent}
+                 <Button text="Wall of fun"
                          color="blue"
                          onClick={this.props.showWallClick}
-                         style={{height:"80%","margin":"10% 10px"}}/>
+                         className="valign"
+                 />
                </div>
                <div className="col s9" style={{height:"100%","padding":"5px"}}>
                  <WallOverviewTopBar wallPictures={this.props.wallPictures} showWallClick={this.props.showWallClick} />

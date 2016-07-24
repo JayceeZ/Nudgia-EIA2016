@@ -111,7 +111,7 @@ function buildPopup(picId,picData){
   else if(picData.status.type == "pokemon")
     alert = "<li><h6 class='popup-green-detail'>"+picData.status.detail+"</h6></li>";
   popup.innerHTML = '<ul><li><h6 class="popup-timestamp">'+picData.timestamp+'</h6></li>' +
-    '<li><img class="popup-picture" src="'+picData.url+'" height="150px" onClick="onPopupPictureClick('+picId+')"/></li>' + alert +
+    '<li><img class="popup-myPicture" src="'+picData.url+'" height="150px" onClick="onPopupPictureClick('+picId+')"/></li>' + alert +
     '</ul>';
   return popup;
 }
