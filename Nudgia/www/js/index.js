@@ -60,8 +60,13 @@ var app = {
         '</div>';
 
       var thresholdSliderDOM = window.document.getElementById("threshold");
-      if (thresholdSliderDOM) {
+      if(thresholdSliderDOM) {
+        thresholdSliderDOM.value = pictureTaker.speed_margin;
         thresholdSliderDOM.addEventListener('change', pictureTaker.onThresholdChange);
+      }
+      var thresholdValueDOM = window.document.getElementById("thresholdValue");
+      if(thresholdValueDOM) {
+        thresholdValueDOM.innerHTML = pictureTaker.speed_margin;
       }
     }
   },

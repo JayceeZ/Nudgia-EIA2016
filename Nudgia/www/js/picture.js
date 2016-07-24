@@ -53,7 +53,7 @@ var pictureTaker = {
     app.logDebug("User come to see myPicture "+imgUrl);
   },
 
-  onSuccess: function (imgUrl, somethingElse) {
+  onSuccess: function (imgUrl) {
     app.logDebug("Picture taken");
     if(app.debug) {
       var pictureDataDOM = window.document.getElementById("picture");
@@ -61,7 +61,6 @@ var pictureTaker = {
         pictureDataDOM.src = imgUrl;
       }
       notification.sendNotification(imgUrl);
-      app.myReportIndex++;
     }
     faceDetect.detectFace(imgURL);
     pictureTaker.alreadyTakenOne = true;
@@ -72,12 +71,3 @@ var pictureTaker = {
   }
 
 };
-
-var thresholdSliderDOM = window.document.getElementById("threshold");
-if(thresholdSliderDOM) {
-  thresholdSliderDOM.value = pictureTaker.speed_margin;
-}
-var thresholdValueDOM = window.document.getElementById("thresholdValue");
-if(thresholdValueDOM) {
-  thresholdValueDOM.innerHTML = pictureTaker.speed_margin;
-}
