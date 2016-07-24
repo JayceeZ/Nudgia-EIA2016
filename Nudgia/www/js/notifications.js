@@ -1,6 +1,6 @@
 var notification = {
   TAKE_ONE: {
-    title: "Hey, I took a picture of you :p",
+    title: "Hey, I took a myPicture of you :p",
     text: "Click me to watch it"
   },
   TAKE_MULTIPLES: {

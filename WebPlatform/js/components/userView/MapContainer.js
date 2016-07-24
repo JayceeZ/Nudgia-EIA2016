@@ -103,7 +103,7 @@ function buildPopup(picId,picData){
   if(picData.drivingStatus != "good")
     alert = "<li><h6 class='popup-alert'>"+picData.drivingStatus+"</h6></li>";
   popup.innerHTML = '<ul><li><h6 class="popup-timestamp">'+picData.timestamp+'</h6></li>' +
-    '<li><img class="popup-picture" src="'+picData.url+'" height="150px" onClick="onPopupPictureClick('+picId+')"/></li>' + alert +
+    '<li><img class="popup-myPicture" src="'+picData.url+'" height="150px" onClick="onPopupPictureClick('+picId+')"/></li>' + alert +
     '</ul>';
   return popup;
 }
