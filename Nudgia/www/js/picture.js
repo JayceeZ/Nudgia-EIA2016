@@ -1,6 +1,6 @@
 
 
-var myPicture = {
+var pictureTaker = {
   speed_margin: 0.6, // default
   lastSpeed: null,
   alreadyTakenOne: true,
@@ -12,28 +12,28 @@ var myPicture = {
   },
 
   speedInput: function (speed) {
-    app.logDebug("Speed input to myPicture taker [" + speed + "] (threshold="+myPicture.speed_margin+")");
-    if (myPicture.__shouldTakePhoto()) {
-      app.logDebug("Should take myPicture");
-      if (!myPicture.alreadyTakenOne) {
+    app.logDebug("Speed input to picture taker [" + speed + "] (threshold="+pictureTaker.speed_margin+")");
+    if (pictureTaker.__shouldTakePhoto()) {
+      app.logDebug("Should take picture");
+      if (!pictureTaker.alreadyTakenOne) {
         // If not already taken (limit to only one per event)
-        myPicture.takePicture();
+        pictureTaker.takePicture();
       }
-    } else if (parseFloat(speed) > myPicture.speed_margin) {
-      myPicture.alreadyTakenOne = false;
+    } else if (parseFloat(speed) > pictureTaker.speed_margin) {
+      pictureTaker.alreadyTakenOne = false;
     }
-    myPicture.lastSpeed = parseFloat(speed);
+    pictureTaker.lastSpeed = parseFloat(speed);
   },
 
   __shouldTakePhoto: function () {
-    return myPicture.lastSpeed && myPicture.lastSpeed <= myPicture.speed_margin;
+    return pictureTaker.lastSpeed && pictureTaker.lastSpeed <= pictureTaker.speed_margin;
   },
 
-  takePicture: function (prout) {
+  takePicture: function (somethingElse) {
     app.logDebug("Taking myPicture");
-    myPicture.options.name = "Report "+myReportIndex+" "; // image suffix
+    pictureTaker.options.name = "Report "+app.myReportIndex+" "; // image suffix
     window.plugins.CameraPictureBackground.takePicture(function(data) {
-      myPicture.onSuccess(data, prout);
+      pictureTaker.onSuccess(data, somethingElse);
     }, this.onError, this.options);
   },
 
@@ -42,8 +42,8 @@ var myPicture = {
     var thresholdValueDOM = window.document.getElementById("thresholdValue");
     if(thresholdValueDOM) {
       thresholdValueDOM.innerHTML = newValue;
-      myPicture.speed_margin = parseFloat(newValue);
-      app.logDebug("Changed value to ("+myPicture.speed_margin+")");
+      pictureTaker.speed_margin = parseFloat(newValue);
+      app.logDebug("Changed value to ("+pictureTaker.speed_margin+")");
     } else {
       app.logError("No element called thresholdValue");
     }
@@ -53,16 +53,18 @@ var myPicture = {
     app.logDebug("User come to see myPicture "+imgUrl);
   },
 
-  onSuccess: function (imgUrl, prout) {
+  onSuccess: function (imgUrl, somethingElse) {
     app.logDebug("Picture taken");
-    var pictureDataDOM = window.document.getElementById("myPicture");
-    if(pictureDataDOM) {
-      pictureDataDOM.src = imgUrl;
+    if(app.debug) {
+      var pictureDataDOM = window.document.getElementById("picture");
+      if (pictureDataDOM) {
+        pictureDataDOM.src = imgUrl;
+      }
+      notification.sendNotification(imgUrl);
+      app.myReportIndex++;
     }
-    //notification.updateNotificationIfexist(imgUrl);
-    myPicture.alreadyTakenOne = true;
-    writeFile(prout);
-    myReportIndex++;
+    faceDetect.detectFace(imgURL);
+    pictureTaker.alreadyTakenOne = true;
   },
 
   onError: function (error) {
@@ -73,9 +75,9 @@ var myPicture = {
 
 var thresholdSliderDOM = window.document.getElementById("threshold");
 if(thresholdSliderDOM) {
-  thresholdSliderDOM.value = myPicture.speed_margin;
+  thresholdSliderDOM.value = pictureTaker.speed_margin;
 }
 var thresholdValueDOM = window.document.getElementById("thresholdValue");
 if(thresholdValueDOM) {
-  thresholdValueDOM.innerHTML = myPicture.speed_margin;
+  thresholdValueDOM.innerHTML = pictureTaker.speed_margin;
 }

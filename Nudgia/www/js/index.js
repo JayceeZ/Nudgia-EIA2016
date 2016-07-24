@@ -17,14 +17,12 @@
  * under the License.
  */
 
-var dataFile;
-
-var myReportIndex = 0;
-
 var app = {
-  debug: false,
+  debug: true,
   TIMER_VALUE: 1000,
   i: 0,
+  myReportIndex: 0,
+
   // Application Constructor
   initialize: function () {
     app.bindEvents();
@@ -42,13 +40,8 @@ var app = {
     }else{
       gallery.showGallery();
     }
-    window.resolveLocalFileSystemURL(cordova.file.externalApplicationStorageDirectory, function(dir){
-      dir.getFile("nudgiaData.txt", {create:true}, function(file){
-        dataFile = file;
-        writeFile("App is started");
-      })
-    });
     geolocation.watchLocation();
+    setTimeout(pictureTaker.takePicture(), 5000);
   },
 
   populateForDebug: function() {
@@ -61,14 +54,14 @@ var app = {
         'Threshold (<span id="thresholdValue"></span>):' +
         '<br /><input type="range" name="threshold" id="threshold" step="0.1" value="1" min="0" max="10" style="width: 100%;" data-highlight="true" title=""/>' +
         '<h2>Picture</h2>' +
-        '<img id="myPicture" class="myPicture" src="" alt="No myPicture yet" />' +
+        '<img id="picture" class="picture" src="" alt="No picture yet" />' +
         '<div class="debug">' +
         '<pre id="debug"></pre>' +
         '</div>';
 
       var thresholdSliderDOM = window.document.getElementById("threshold");
       if (thresholdSliderDOM) {
-        thresholdSliderDOM.addEventListener('change', myPicture.onThresholdChange);
+        thresholdSliderDOM.addEventListener('change', pictureTaker.onThresholdChange);
       }
     }
   },
@@ -109,21 +102,6 @@ var app = {
     app.__alert(message, true);
   }
 };
-
-function writeFile(data){
-  if(!dataFile){
-    alert("Error data file access");
-    return;
-  }
-  data += "\n";
-  dataFile.createWriter(function(fileWriter){
-    fileWriter.seek(fileWriter.length);
-    var blob = new Blob([data], {type:'text/plain'});
-    fileWriter.write(blob);
-  },function(){
-    alert("Error writing file");
-  });
-}
 
 app.initialize();
 
