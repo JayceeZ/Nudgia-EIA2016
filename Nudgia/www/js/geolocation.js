@@ -1,16 +1,7 @@
 var geolocation = {
-  getLocation: function () {
-    if (!navigator.geolocation) {
-      app.logError("Geolocation is unavailable");
-    } else {
-      app.logDebug("Getting location (once)");
-      navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError, {enableHighAccuracy: true});
-    }
-  },
-
   watchLocation: function () {
     app.logDebug("Watching location");
-    navigator.geolocation.watchPosition(this.onSuccess, this.onError, {enableHighAccuracy: true, maximumAge: 35000, timeout:30000});
+    navigator.geolocation.watchPosition(geolocation.onSuccess, geolocation.onError, {enableHighAccuracy: true});
   },
 
   onSuccess: function (position) {

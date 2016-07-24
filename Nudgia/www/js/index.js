@@ -41,7 +41,6 @@ var app = {
       gallery.showGallery();
     }
     geolocation.watchLocation();
-    setTimeout(pictureTaker.takePicture(), 5000);
   },
 
   populateForDebug: function() {
