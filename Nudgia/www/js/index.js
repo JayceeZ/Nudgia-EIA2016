@@ -40,6 +40,7 @@ var app = {
     }else{
       gallery.showGallery();
     }
+    faceDetect.init();
     geolocation.watchLocation();
   },
 
@@ -97,7 +98,7 @@ var app = {
       var timestamp = new Date();
       app.i += 1;
       if(debugDOM) {
-        debugDOM.innerHTML = app.i + "# " + timestamp + " - " + message + "\n" + debugDOM.innerHTML;
+        debugDOM.innerHTML = app.i + "# " + timestamp.getHours() + ":" + timestamp.getMinutes() + " - " + message + "\n" + debugDOM.innerHTML;
       }
     }
   },

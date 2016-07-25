@@ -1,28 +1,23 @@
-
-
 var pictureTaker = {
   speed_margin: 0.6, // default
   lastSpeed: null,
   alreadyTakenOne: true,
 
   options: {
-    dirName: "CameraPictureBackground", // foldername
+    dirName: "Nudgia", // foldername
     orientation: "portrait", // landscape or portrait
     type: "front", // back or front,
-    name: "Nudgia "+app.myReportIndex+" " // image suffix
+    name: "nudgia"  // prefix to files
   },
 
   speedInput: function (speed) {
-    app.logDebug("Speed input to picture taker [" + speed + "] (threshold="+pictureTaker.speed_margin+")");
-    if (pictureTaker.__shouldTakePhoto()) {
+    app.logDebug("Speed input to picture taker [" + speed + "]  [alreadytakenOne="+pictureTaker.alreadyTakenOne+"] [threshold="+pictureTaker.speed_margin+"]");
+    if (pictureTaker.__shouldTakePhoto() && !pictureTaker.alreadyTakenOne) {
+      // If not already taken (limit to only one per event)
       app.logDebug("Should take picture");
-      if (!pictureTaker.alreadyTakenOne) {
-        // If not already taken (limit to only one per event)
-        pictureTaker.alreadyTakenOne = true;
-        pictureTaker.takePicture();
-      }
+      pictureTaker.alreadyTakenOne = true;
+      pictureTaker.takePicture();
     } else if (parseFloat(speed) > pictureTaker.speed_margin) {
-      app.logDebug("Allow picture");
       pictureTaker.alreadyTakenOne = false;
     }
     pictureTaker.lastSpeed = parseFloat(speed);
@@ -32,10 +27,10 @@ var pictureTaker = {
     return pictureTaker.lastSpeed && pictureTaker.lastSpeed <= pictureTaker.speed_margin;
   },
 
-  takePicture: function (somethingElse) {
+  takePicture: function () {
     app.logDebug("Taking picture");
     window.plugins.CameraPictureBackground.takePicture(function(data) {
-      pictureTaker.onSuccess(data, somethingElse);
+      pictureTaker.onSuccess(data);
     }, pictureTaker.onError, pictureTaker.options);
   },
 
@@ -62,9 +57,8 @@ var pictureTaker = {
       if (pictureDataDOM) {
         pictureDataDOM.src = imgUrl;
       }
-      notification.sendNotification(imgUrl);
     }
-    faceDetect.detectFace(imgURL);
+    faceDetect.detectFace(imgUrl);
   },
 
   onError: function (error) {
