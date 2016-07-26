@@ -26,12 +26,12 @@ var gallery = {
     }
   },
 
-  __getImgDOM: function(url, name) {
+  __getImgDOM: function(urlThumb, urlImage, name) {
     var dom = new Image();
     dom.classList.add("gallery-picture");
-    dom.src = url;
+    dom.src = urlThumb;
     dom.addEventListener('click', function() {
-      gallery.openModal(url);
+      gallery.openModal(urlImage);
     });
     return dom;
   },
@@ -45,11 +45,13 @@ var gallery = {
     picture.takePicture(gallery.addPicture);
   },
 
-  addPicture: function(url) {
+  addPicture: function(urlThumb) {
     log.addLog("Add picture to gallery");
-    var nameSplit = url.split('/');
-    var name = nameSplit[nameSplit.length-1];
-    gallery.gallerySelector.prepend(gallery.__getImgDOM(url, name));
+    var nameSplit = urlThumb.split('/');
+    var name = nameSplit.pop();
+    var urlImage = urlThumb.replace("thumbsPictures/Thumbs", "");
+    log.addLog(urlImage + " thumb in " + urlThumb);
+    gallery.gallerySelector.prepend(gallery.__getImgDOM(urlThumb, urlImage, name));
   }
 
 };

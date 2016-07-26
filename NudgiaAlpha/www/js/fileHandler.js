@@ -6,6 +6,7 @@ var fileHandler = {
 
   pathPrefix:"file://",
   pictureDir:"",
+  thumbsDir:"thumbsPictures/",
 
   initialize:function(successcb){
     window.plugins.CameraPictureBackground.takePicture(function(url){
@@ -28,7 +29,7 @@ var fileHandler = {
   },
 
   listPictures:function(successCallback){
-      var path = fileHandler.pathPrefix+fileHandler.pictureDir;
+      var path = fileHandler.pathPrefix+fileHandler.pictureDir+fileHandler.thumbsDir;
       window.resolveLocalFileSystemURL(path,
         function (fileSystem) {
           var reader = fileSystem.createReader();
@@ -37,7 +38,7 @@ var fileHandler = {
               var picturesPaths = [];
               for(var i = 0; i < entries.length ; i ++){
                 if(entries[i].name.indexOf("NudgiaPicture") > -1)
-                  picturesPaths.push(fileHandler.pictureDir+entries[i].name);
+                  picturesPaths.push(fileHandler.pictureDir+fileHandler.thumbsDir+entries[i].name);
               }
               successCallback(picturesPaths);
             },

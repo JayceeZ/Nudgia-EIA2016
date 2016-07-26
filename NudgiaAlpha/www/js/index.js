@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var DEBUG = false;
+var DEBUG = true;
 
 var app = {
     // Application Constructor
