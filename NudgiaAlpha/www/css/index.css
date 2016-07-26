@@ -94,34 +94,33 @@ h1 {
 }
 
 #app-gallery{
-    height:90%;
-    width:100%;
-    padding:0 10px;
+    height: 100%;
+    width: 100%;
+    padding: 0 10px;
     overflow-y: auto;
 }
 
-.gallery-picture{
-    margin:10px 0;
+#app-gallery > img {
+    width: 100%;
+    margin-top: 10px;
 }
 
-#app-log{
-    height:0;
-    width:100%;
+#app-log {
+    height: 0;
+    width: 100%;
     overflow-y: auto;
 }
 
 .log-error{
-    color:red;
+    color: red;
 }
 
-#app-buttons{
-    height: 10%;
+#selfie-button {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
 }
 
-#app-buttons > div{
-    height:100%;
-}
-
-#app-buttons a{
-    width:100%;
+#app-gallery-modal-img {
+    width: 100%;
 }

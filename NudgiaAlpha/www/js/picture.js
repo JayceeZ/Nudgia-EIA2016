@@ -11,25 +11,25 @@ var picture = {
     type: "front" // back or front
   },
 
-  takePicture:function(callback){
+  takePicture: function(callback){
+    log.addLog("Take picture");
     window.plugins.CameraPictureBackground.takePicture(
-      function() {
-        picture.onSuccess(callback)
+      function(url) {
+        picture.onSuccess(url, callback)
       },
       picture.onError,
       picture.options
     );
   },
 
-  onSuccess:function(callback){
+  onSuccess: function(url, callback){
     log.addLog("Picture taken");
     if(callback) {
-      callback();
+      callback(url);
     }
   },
 
-  onError:function(){
+  onError: function(){
     log.addLogError("Error taking picture");
   }
-
 };

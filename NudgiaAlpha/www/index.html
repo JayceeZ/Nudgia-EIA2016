@@ -35,15 +35,23 @@
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
         <link rel="stylesheet" type="text/css" href="css/icon.css">
-        <title>Hello World</title>
+        <title>Nudgia</title>
     </head>
     <body>
-        <div class="app row">
-            <div id="app-buttons">
-                <div class="col s10 offset-s1 valign-wrapper">
-                    <a id="selfie-button" class="waves-effect waves-light btn green valign">Take a selfie !</a>
-                </div>
+        <!-- Modal Gallery -->
+        <div id="app-gallery-modal" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <a href="#!" class="btn modal-action modal-close waves-effect">x</a>
+                <img id="app-gallery-modal-img" src="" alt="Error loading picture" />
             </div>
+            <div class="modal-footer">
+                <a href="#!" class="btn waves-effect">Share</a>
+            </div>
+        </div>
+        <div class="app">
+            <a id="selfie-button" class="btn-floating btn-large waves-effect waves-light red">
+                <i class="material-icons">add</i>
+            </a>
             <div id="app-gallery">
 
             </div>

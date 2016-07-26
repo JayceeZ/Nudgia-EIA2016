@@ -5,11 +5,18 @@
 var gallery = {
 
   gallerySelector:null,
+  galleryModal: null,
+  imgModal: null,
 
   initGallery:function(){
     gallery.gallerySelector = $("#app-gallery");
-    $("#selfie-button").click(gallery.takeSelfie);
+    gallery.galleryModal = $('#app-gallery-modal');
+    gallery.imgModal = gallery.galleryModal.find("#app-gallery-modal-img");
     fileHandler.listPictures(gallery.fillGallery);
+
+    var selfieButton = $("#selfie-button");
+    selfieButton.click(gallery.takeSelfie);
+    selfieButton.attr("display", "block");
   },
 
   fillGallery: function(urls) {
@@ -20,18 +27,29 @@ var gallery = {
   },
 
   __getImgDOM: function(url, name) {
-    var dom = '<div width="100%"><img class="gallery-picture z-depth-1" src="'+url+'" width="100%" /></div>';
+    var dom = new Image();
+    dom.classList.add("gallery-picture");
+    dom.src = url;
+    dom.addEventListener('click', function() {
+      gallery.openModal(url);
+    });
     return dom;
+  },
+
+  openModal: function(url) {
+    gallery.imgModal.attr("src", url);
+    gallery.galleryModal.openModal();
   },
 
   takeSelfie: function(){
     picture.takePicture(gallery.addPicture);
   },
 
-  addPicture: function(url){
+  addPicture: function(url) {
+    log.addLog("Add picture to gallery");
     var nameSplit = url.split('/');
     var name = nameSplit[nameSplit.length-1];
-    gallery.gallerySelector.prepend(this.__getImgDOM(url, name));
+    gallery.gallerySelector.prepend(gallery.__getImgDOM(url, name));
   }
 
 };
