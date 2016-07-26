@@ -17,6 +17,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import android.os.Environment;
+
 public class CameraPictureBackground extends CordovaPlugin {
 
 	public static final String TAG = "CameraPictureBackground";
@@ -92,6 +95,9 @@ public class CameraPictureBackground extends CordovaPlugin {
 			});
 			//callbackContext.success();
 			return true;
+		}else if(action.equalsIgnoreCase("getdirurl")){
+		    File sdDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		    callbackContext.success(sdDir.getPath());
 		}
 		return true;
 	}

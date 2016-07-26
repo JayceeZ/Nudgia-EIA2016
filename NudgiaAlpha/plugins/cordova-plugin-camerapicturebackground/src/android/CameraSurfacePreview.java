@@ -24,6 +24,7 @@ import android.view.WindowManager;
 import android.media.FaceDetector;
 import android.media.FaceDetector.Face;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
@@ -119,6 +120,7 @@ public class CameraSurfacePreview extends Service {
 						imageName += "Face"+faceDetect;
 
 						FileOutputStream outStream = null;
+						FileOutputStream outStream2 = null;
 						File sdDir = Environment
 								.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 						File pictureFileDir = new File(sdDir,dirName);
@@ -127,22 +129,33 @@ public class CameraSurfacePreview extends Service {
 
 						if (!pictureFileDir.exists())
 							pictureFileDir.mkdir();
+
+						File compressedFileDir = new File(pictureFileDir,"thumbsPictures");
+
+						if (!compressedFileDir.exists())
+                            compressedFileDir.mkdir();
 						
 						SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmmss");
 						String date = dateFormat.format(new Date());
 						
-						String filepath = pictureFileDir.getPath()
+						String fullsizefilepath = pictureFileDir.getPath()
 								+ File.separator +imageName+"-"+date+".jpg";
 
+                        String compressedfilepath = compressedFileDir.getPath()
+                        		+ File.separator + "Thumbs"+imageName+"-"+date+".jpeg";
 
-						File pictureFile = new File(filepath);
-
+						File pictureFile = new File(fullsizefilepath);
+                        File compressedFile = new File(compressedfilepath);
 						try {
 							outStream = new FileOutputStream(pictureFile);
-							outStream.write(data);
-							debugMessage("Picture Saved Successfully");
+							//outStream.write(data);
+							//debugMessage("Picture Saved Successfully");
+							bitmap.compress(Bitmap.CompressFormat.JPEG,100,outStream);
 							outStream.close();
-							cpb.sendJavascript(filepath);
+							outStream2 = new FileOutputStream(compressedFile);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG,20,outStream2);
+                            outStream2.close();
+							cpb.sendJavascript(fullsizefilepath);
 						} catch (FileNotFoundException e) {
 							debugMessage(e.getMessage());
 						} catch (IOException e) {
