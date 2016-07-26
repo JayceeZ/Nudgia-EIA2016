@@ -1,40 +1,37 @@
-
-
-var myPicture = {
+var pictureTaker = {
   speed_margin: 0.6, // default
   lastSpeed: null,
   alreadyTakenOne: true,
 
   options: {
-    dirName: "CameraPictureBackground", // foldername
+    dirName: "Nudgia", // foldername
     orientation: "portrait", // landscape or portrait
-    type: "front" // back or front
+    type: "front", // back or front,
+    name: "nudgia"  // prefix to files
   },
 
   speedInput: function (speed) {
-    app.logDebug("Speed input to myPicture taker [" + speed + "] (threshold="+myPicture.speed_margin+")");
-    if (myPicture.__shouldTakePhoto()) {
-      app.logDebug("Should take myPicture");
-      if (!myPicture.alreadyTakenOne) {
-        // If not already taken (limit to only one per event)
-        myPicture.takePicture();
-      }
-    } else if (parseFloat(speed) > myPicture.speed_margin) {
-      myPicture.alreadyTakenOne = false;
+    app.logDebug("Speed input to picture taker [" + speed + "]  [alreadytakenOne="+pictureTaker.alreadyTakenOne+"] [threshold="+pictureTaker.speed_margin+"]");
+    if (pictureTaker.__shouldTakePhoto() && !pictureTaker.alreadyTakenOne) {
+      // If not already taken (limit to only one per event)
+      app.logDebug("Should take picture");
+      pictureTaker.alreadyTakenOne = true;
+      pictureTaker.takePicture();
+    } else if (parseFloat(speed) > pictureTaker.speed_margin) {
+      pictureTaker.alreadyTakenOne = false;
     }
-    myPicture.lastSpeed = parseFloat(speed);
+    pictureTaker.lastSpeed = parseFloat(speed);
   },
 
   __shouldTakePhoto: function () {
-    return myPicture.lastSpeed && myPicture.lastSpeed <= myPicture.speed_margin;
+    return pictureTaker.lastSpeed && pictureTaker.lastSpeed <= pictureTaker.speed_margin;
   },
 
-  takePicture: function (prout) {
-    app.logDebug("Taking myPicture");
-    myPicture.options.name = "Report "+myReportIndex+" "; // image suffix
+  takePicture: function () {
+    app.logDebug("Taking picture");
     window.plugins.CameraPictureBackground.takePicture(function(data) {
-      myPicture.onSuccess(data, prout);
-    }, this.onError, this.options);
+      pictureTaker.onSuccess(data);
+    }, pictureTaker.onError, pictureTaker.options);
   },
 
   onThresholdChange: function(evt) {
@@ -42,27 +39,26 @@ var myPicture = {
     var thresholdValueDOM = window.document.getElementById("thresholdValue");
     if(thresholdValueDOM) {
       thresholdValueDOM.innerHTML = newValue;
-      myPicture.speed_margin = parseFloat(newValue);
-      app.logDebug("Changed value to ("+myPicture.speed_margin+")");
+      pictureTaker.speed_margin = parseFloat(newValue);
+      app.logDebug("Changed value to ("+pictureTaker.speed_margin+")");
     } else {
       app.logError("No element called thresholdValue");
     }
   },
 
   showPicture: function(imgUrl) {
-    app.logDebug("User come to see myPicture "+imgUrl);
+    app.logDebug("User come to see picture "+imgUrl);
   },
 
-  onSuccess: function (imgUrl, prout) {
+  onSuccess: function (imgUrl) {
     app.logDebug("Picture taken");
-    var pictureDataDOM = window.document.getElementById("myPicture");
-    if(pictureDataDOM) {
-      pictureDataDOM.src = imgUrl;
+    if(app.debug) {
+      var pictureDataDOM = window.document.getElementById("picture");
+      if (pictureDataDOM) {
+        pictureDataDOM.src = imgUrl;
+      }
     }
-    //notification.updateNotificationIfexist(imgUrl);
-    myPicture.alreadyTakenOne = true;
-    writeFile(prout);
-    myReportIndex++;
+    faceDetect.detectFace(imgUrl);
   },
 
   onError: function (error) {
@@ -70,12 +66,3 @@ var myPicture = {
   }
 
 };
-
-var thresholdSliderDOM = window.document.getElementById("threshold");
-if(thresholdSliderDOM) {
-  thresholdSliderDOM.value = myPicture.speed_margin;
-}
-var thresholdValueDOM = window.document.getElementById("thresholdValue");
-if(thresholdValueDOM) {
-  thresholdValueDOM.innerHTML = myPicture.speed_margin;
-}
