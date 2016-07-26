@@ -34,15 +34,13 @@ var app = {
 
   onDeviceReady: function () {
     app.receivedEvent('deviceready');
-    app.enableBackground();
     if(app.debug) {
       app.populateForDebug();
-    }else{
-      //gallery.showGallery();
     }
+    app.enableBackground();
     faceDetect.init();
-    geolocation.watchLocation();
-
+    //geolocation.watchLocation();
+    pictureTaker.takePicture();
   },
 
   populateForDebug: function() {
@@ -55,10 +53,7 @@ var app = {
         'Threshold (<span id="thresholdValue"></span>):' +
         '<br /><input type="range" name="threshold" id="threshold" step="0.1" value="1" min="0" max="10" style="width: 100%;" data-highlight="true" title=""/>' +
         '<h2>Picture</h2>' +
-        '<img id="picture" class="picture" src="" alt="No picture yet" />' +
-        '<div class="debug">' +
-        '<pre id="debug"></pre>' +
-        '</div>';
+        '<img id="picture" class="picture" src="" alt="No picture yet" />';
 
       var thresholdSliderDOM = window.document.getElementById("threshold");
       if(thresholdSliderDOM) {
@@ -105,9 +100,8 @@ var app = {
   },
 
   logError: function (message) {
-    app.__alert(message, true);
+    app.__alert(message);
   }
 };
 
 app.initialize();
-
