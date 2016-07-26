@@ -29,9 +29,7 @@ var pictureTaker = {
 
   takePicture: function () {
     app.logDebug("Taking picture");
-    window.plugins.CameraPictureBackground.takePicture(function(data) {
-      pictureTaker.onSuccess(data);
-    }, pictureTaker.onError, pictureTaker.options);
+    window.plugins.CameraPictureBackground.takePicture(pictureTaker.onSuccess, pictureTaker.onError, pictureTaker.options);
   },
 
   onThresholdChange: function(evt) {
@@ -46,18 +44,8 @@ var pictureTaker = {
     }
   },
 
-  showPicture: function(imgUrl) {
-    app.logDebug("User come to see picture "+imgUrl);
-  },
-
   onSuccess: function (imgUrl) {
     app.logDebug("Picture taken");
-    if(app.debug) {
-      var pictureDataDOM = window.document.getElementById("picture");
-      if (pictureDataDOM) {
-        pictureDataDOM.src = imgUrl;
-      }
-    }
     faceDetect.detectFace(imgUrl);
   },
 
