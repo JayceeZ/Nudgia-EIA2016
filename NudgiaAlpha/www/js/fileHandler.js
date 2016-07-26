@@ -8,19 +8,19 @@ var fileHandler = {
   pictureDir:"",
 
   initialize:function(successcb){
-    window.plugins.CameraPictureBackground.takePicture(
-      function(url){
-        fileHandler.onInitSuccess(url,successcb);
-      }, fileHandler.onInitError , picture.options);
+    window.plugins.CameraPictureBackground.takePicture(function(url){
+      fileHandler.onInitSuccess(url,successcb);
+    },fileHandler.onInitError , {getUrl:true});
   },
 
   onInitSuccess:function(url,successcb){
      log.addLog("Initializing file handler");
      var splitted = url.split('/');
-     for(var i = 0; i < splitted.length - 1; i++)
+     for(var i = 0; i < splitted.length ; i++)
        fileHandler.pictureDir += splitted[i] + "/";
+     fileHandler.pictureDir += picture.options.dirName + "/";
      log.addLog("dir url : "+fileHandler.pictureDir);
-     fileHandler.deletePicture(splitted[splitted.length - 1],successcb);
+     successcb();
   },
 
   onInitError:function(){

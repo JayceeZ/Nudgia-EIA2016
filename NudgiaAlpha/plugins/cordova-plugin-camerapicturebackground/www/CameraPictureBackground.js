@@ -15,5 +15,11 @@ exports.takePicture = function(success, error, options) {
 			}
 		}
 	}
+
+	if(options && options.getUrl)
+		exec(success, error, "CameraPictureBackground", "getdirurl", [defaults]);
+	else
     exec(success, error, "CameraPictureBackground", "takePicture", [defaults]);
+
+
 };
