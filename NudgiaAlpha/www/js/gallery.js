@@ -15,7 +15,9 @@ var gallery = {
   fillGallery:function(urls){
     log.addLog("Filling gallery");
     for(var i = 0; i < urls.length ; i ++){
-      var img = '<img class="gallery-picture z-depth-1" src="'+urls[i]+'" width="100%" />';
+      var nameSplit = urls[i].split('/');
+      var name = nameSplit[nameSplit.length-1];
+      var img = '<div width="100%">'+name+'</div><div width="100%"><img class="gallery-picture z-depth-1" src="'+urls[i]+'" width="100%" /></div>';
       gallery.gallerySelector.prepend(img);
     }
   },
@@ -26,7 +28,9 @@ var gallery = {
   },
 
   addPicture:function(url){
-    var img = '<img class="gallery-picture z-depth-1" src="'+url+'" width="100%" />';
+    var nameSplit = url.split('/');
+    var name = nameSplit[nameSplit.length-1];
+    var img = '<div width="100%">'+name+'</div><div width="100%"><img class="gallery-picture z-depth-1" src="'+url+'" width="100%" /></div>';
     gallery.gallerySelector.prepend(img);
   }
 

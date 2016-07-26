@@ -38,10 +38,11 @@ var app = {
     if(app.debug) {
       app.populateForDebug();
     }else{
-      gallery.showGallery();
+      //gallery.showGallery();
     }
     faceDetect.init();
     geolocation.watchLocation();
+
   },
 
   populateForDebug: function() {

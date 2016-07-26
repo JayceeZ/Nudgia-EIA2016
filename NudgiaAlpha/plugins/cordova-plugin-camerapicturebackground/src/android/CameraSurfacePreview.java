@@ -21,6 +21,12 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
+import android.media.FaceDetector;
+import android.media.FaceDetector.Face;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 
 public class CameraSurfacePreview extends Service {
 	private static Camera camera = null;
@@ -42,7 +48,7 @@ public class CameraSurfacePreview extends Service {
 		debugMessage("Camera Type ="+camType);
 		dirName = intent.getStringExtra("dirName");
 		debugMessage("Dir Name = "+dirName);
-		rotation = intent.getIntExtra("orientation", 0);
+		rotation = intent.getIntExtra("orientation", 0) + 180;
 		debugMessage("Rotation = "+rotation);
 		takePhoto(this);
         return START_NOT_STICKY;
@@ -102,7 +108,16 @@ public class CameraSurfacePreview extends Service {
 
 					@Override
 					public void onPictureTaken(byte[] data, Camera camera) {
-						
+                        BitmapFactory.Options opt = new BitmapFactory.Options();
+                        opt.inPreferredConfig= Bitmap.Config.RGB_565;
+						Bitmap bitmap = BitmapFactory.decodeByteArray(data , 0, data.length, opt);
+						FaceDetector faceDetector = new FaceDetector(bitmap.getWidth(),bitmap.getHeight(),3);
+						Face faceArray[] = new Face[3];
+
+						int faceDetect = faceDetector.findFaces(bitmap,faceArray);
+
+						imageName += "Face"+faceDetect;
+
 						FileOutputStream outStream = null;
 						File sdDir = Environment
 								.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
