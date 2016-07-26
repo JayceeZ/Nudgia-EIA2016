@@ -6,7 +6,7 @@ var picture = {
 
   options :{
     name:"NudgiaPicture",
-    dirName: "Nudgia", // foldername
+    dirName: "Nudgia", //  (DO NOT CHANGE hardcoded in the plugin)
     orientation: "portrait", // landscape or portrait
     type: "front" // back or front
   },
