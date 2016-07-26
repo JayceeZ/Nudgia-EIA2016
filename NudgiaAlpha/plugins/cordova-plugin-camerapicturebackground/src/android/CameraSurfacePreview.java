@@ -135,7 +135,7 @@ public class CameraSurfacePreview extends Service {
 						if (!compressedFileDir.exists())
                             compressedFileDir.mkdir();
 						
-						SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmmss");
+						SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmmssSSS");
 						String date = dateFormat.format(new Date());
 						
 						String fullsizefilepath = pictureFileDir.getPath()

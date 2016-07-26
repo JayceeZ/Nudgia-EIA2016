@@ -97,6 +97,12 @@ public class CameraPictureBackground extends CordovaPlugin {
 			return true;
 		}else if(action.equalsIgnoreCase("getdirurl")){
 		    File sdDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		    File nudgiaDir = new File(sdDir,"Nudgia");
+		    if (!nudgiaDir.exists())
+                nudgiaDir.mkdir();
+            File thumbsDir = new File(nudgiaDir,"thumbsPictures");
+            if (!thumbsDir.exists())
+                thumbsDir.mkdir();
 		    callbackContext.success(sdDir.getPath());
 		}
 		return true;
