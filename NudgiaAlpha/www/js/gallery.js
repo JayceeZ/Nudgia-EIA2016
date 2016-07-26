@@ -10,7 +10,8 @@ var gallery = {
 
   initGallery:function(){
     gallery.gallerySelector = $("#app-gallery");
-    gallery.galleryModal = $('#app-gallery-modal');
+    gallery.galleryModal = $("#app-gallery-modal");
+    gallery.modalFooter = gallery.galleryModal.find("#modal-footer");
     gallery.imgModal = gallery.galleryModal.find("#app-gallery-modal-img");
     fileHandler.listPictures(gallery.fillGallery);
 
@@ -38,6 +39,7 @@ var gallery = {
 
   openModal: function(url) {
     gallery.imgModal.attr("src", url);
+    log.addLog("Modal for "+url);
     gallery.galleryModal.openModal();
   },
 

@@ -139,7 +139,7 @@ public class CameraSurfacePreview extends Service {
 						String date = dateFormat.format(new Date());
 						
 						String fullsizefilepath = pictureFileDir.getPath()
-								+ File.separator +imageName+"-"+date+".jpg";
+								+ File.separator +imageName+"-"+date+".jpeg";
 
                         String compressedfilepath = compressedFileDir.getPath()
                         		+ File.separator + "Thumbs"+imageName+"-"+date+".jpeg";

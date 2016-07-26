@@ -6,7 +6,7 @@ var picture = {
 
   options :{
     name:"NudgiaPicture",
-    dirName: "CameraPictureBackground", // foldername
+    dirName: "Nudgia", // foldername
     orientation: "portrait", // landscape or portrait
     type: "front" // back or front
   },

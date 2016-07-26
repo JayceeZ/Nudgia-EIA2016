@@ -39,8 +39,8 @@ var app = {
     }
     app.enableBackground();
     faceDetect.init();
-    //geolocation.watchLocation();
-    pictureTaker.takePicture();
+    geolocation.watchLocation();
+    //pictureTaker.takePicture();
   },
 
   populateForDebug: function() {
