@@ -1,0 +1,25 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-camerapicturebackground": {
+            "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
+        }
+    }
+}
