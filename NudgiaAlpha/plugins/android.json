@@ -23,6 +23,10 @@
                         {
                             "xml": "<feature name=\"Geolocation\"><param name=\"android-package\" value=\"org.apache.cordova.geolocation.Geolocation\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SocialSharing\"><param name=\"android-package\" value=\"nl.xservices.plugins.SocialSharing\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -68,7 +72,7 @@
                     "/*": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-                            "count": 1
+                            "count": 2
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
@@ -97,6 +101,9 @@
             "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
         },
         "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
+        },
+        "cordova-plugin-x-socialsharing": {
             "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
         }
     },

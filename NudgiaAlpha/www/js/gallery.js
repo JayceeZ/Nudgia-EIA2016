@@ -3,10 +3,17 @@
  */
 
 var gallery = {
-
   gallerySelector:null,
   galleryModal: null,
+  modalFooter: null,
   imgModal: null,
+
+  shareUrls: {
+    show: ['mail', 'facebook', 'twitter'],
+    mail: 'mailto:?body=',
+    facebook: 'https://www.facebook.com/sharer/sharer.php?u=',
+    twitter: 'https://twitter.com/intent/tweet?text='
+  },
 
   initGallery:function(){
     gallery.gallerySelector = $("#app-gallery");
@@ -40,7 +47,48 @@ var gallery = {
   openModal: function(url) {
     gallery.imgModal.attr("src", url);
     log.addLog("Modal for "+url);
+    gallery.addShare(url);
     gallery.galleryModal.openModal();
+  },
+
+  getImageDataURL: function() {
+    // Create an empty canvas element
+    var img = document.getElementById("app-gallery-modal-img");
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    // Copy the image contents to the canvas
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    var dataURL = canvas.toDataURL("image/jpeg");
+
+    return dataURL; //.replace(/^data:image\/(png|jpg);base64,/, "");
+  },
+
+  addShare: function(url) {
+    var button = $('<button id="share" class="btn">Share</button>');
+    button.on("click", function(evt) {
+      sharer.shareFile(url);
+    });
+    gallery.modalFooter.empty();
+    gallery.modalFooter.prepend(button);
+  },
+
+  buildShareButtons: function(url) {
+    var buttons = '';
+    var list = gallery.shareUrls.show;
+    for(var i=0; i < list.length; i++) {
+      var share = list[i];
+      var href = gallery.shareUrls[share] + encodeURIComponent(sharer.defaultShareText + '\n' + url);
+      log.addLog("Url for sharing is " + href);
+      buttons += '<a class="waves-effect waves-light btn" href="' + href + '">' +
+        '<img class="left" src="icons/'+ share +'.svg" />' +
+        '</a>';
+    }
+    gallery.modalFooter.empty();
+    gallery.modalFooter.prepend(buttons);
   },
 
   takeSelfie: function(){
