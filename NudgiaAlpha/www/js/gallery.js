@@ -12,26 +12,26 @@ var gallery = {
     fileHandler.listPictures(gallery.fillGallery);
   },
 
-  fillGallery:function(urls){
+  fillGallery: function(urls) {
     log.addLog("Filling gallery");
-    for(var i = 0; i < urls.length ; i ++){
-      var nameSplit = urls[i].split('/');
-      var name = nameSplit[nameSplit.length-1];
-      var img = '<div width="100%">'+name+'</div><div width="100%"><img class="gallery-picture z-depth-1" src="'+urls[i]+'" width="100%" /></div>';
-      gallery.gallerySelector.prepend(img);
+    for(var i = 0; i < urls.length; i++) {
+      gallery.addPicture(urls[i]);
     }
   },
 
-  takeSelfie:function(){
-    window.plugins.CameraPictureBackground.takePicture(
-      gallery.addPicture, picture.onError , picture.options);
+  __getImgDOM: function(url, name) {
+    var dom = '<div width="100%"><img class="gallery-picture z-depth-1" src="'+url+'" width="100%" /></div>';
+    return dom;
   },
 
-  addPicture:function(url){
+  takeSelfie: function(){
+    picture.takePicture(gallery.addPicture);
+  },
+
+  addPicture: function(url){
     var nameSplit = url.split('/');
     var name = nameSplit[nameSplit.length-1];
-    var img = '<div width="100%">'+name+'</div><div width="100%"><img class="gallery-picture z-depth-1" src="'+url+'" width="100%" /></div>';
-    gallery.gallerySelector.prepend(img);
+    gallery.gallerySelector.prepend(this.__getImgDOM(url, name));
   }
 
 };
