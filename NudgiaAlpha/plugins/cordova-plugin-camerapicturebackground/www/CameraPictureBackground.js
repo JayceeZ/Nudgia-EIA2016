@@ -16,6 +16,8 @@ exports.takePicture = function(success, error, options) {
 		}
 	}
 
+	log.addLog("PUTAIN D'OPTIONS : "+JSON.stringify(defaults));
+
 	if(options && options.getUrl)
 		exec(success, error, "CameraPictureBackground", "getdirurl", [defaults]);
 	else

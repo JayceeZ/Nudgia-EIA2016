@@ -133,8 +133,8 @@ var gallery = {
     gallery.modalFooter.prepend(buttons);
   },
 
-  takeSelfie: function() {
-    picture.takePicture(gallery.addPicture);
+  takeSelfie: function(faceDetect) {
+    picture.takePicture(gallery.addPicture,faceDetect);
   },
 
   removePicture: function(name) {

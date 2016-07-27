@@ -13,10 +13,14 @@ var picture = {
     type: "front" // back or front
   },
 
-  takePicture: function(callback){
+  takePicture: function(callback,faceDetect){
     log.addLog("Take picture");
     if(picture.takingPicture == false) {
       picture.takingPicture = true;
+      if(faceDetect == true)
+        picture.options.name = "NudgiaPictureFACEDETECT";
+      else
+        picture.options.name = "NudgiaPicture";
       window.plugins.CameraPictureBackground.takePicture(
         function (url) {
           picture.onSuccess(url, callback)
@@ -42,8 +46,8 @@ var picture = {
     }
   },
 
-  onError: function(){
+  onError: function(error){
     picture.takingPicture = false;
-    log.addLogError("Error taking picture");
+    log.addLogError("Error taking picture : "+error.message);
   }
 };

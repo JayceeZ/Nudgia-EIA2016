@@ -43,7 +43,7 @@ public class CameraSurfacePreview extends Service {
 	}
 	
 	public int onStartCommand (Intent intent, int flags, int startId){
-			
+
 		imageName = intent.getStringExtra("filename");
 		debugMessage("Image Name = "+imageName);
 		camType = intent.getIntExtra("camType", 0);
@@ -117,6 +117,14 @@ public class CameraSurfacePreview extends Service {
 
 					@Override
 					public void onPictureTaken(byte[] data, Camera camera) {
+
+					    // ULTRA GUETTO MODE
+					    boolean faceDetection = false;
+					    if(imageName.contains("FACEDETECT")){
+					        faceDetection = true;
+					        imageName.replace("FACEDETECT","");
+					    }
+
                         BitmapFactory.Options opt = new BitmapFactory.Options();
                         opt.inPreferredConfig= Bitmap.Config.RGB_565;
 						Bitmap originalbitmap = BitmapFactory.decodeByteArray(data , 0, data.length, opt);
@@ -129,12 +137,13 @@ public class CameraSurfacePreview extends Service {
 						Bitmap bitmap = Bitmap.createScaledBitmap(originalbitmap,newWidth,newHeight,false);
 						FaceDetector faceDetector = new FaceDetector(bitmap.getWidth(),bitmap.getHeight(),3);
 						Face faceArray[] = new Face[3];
-
-						int faceDetect = faceDetector.findFaces(bitmap,faceArray);
-                        if(faceDetect < 1){
+                        int faceDetect = 0;
+                        if(faceDetection == true)
+						    faceDetect = faceDetector.findFaces(bitmap,faceArray);
+                        if(faceDetection == true && faceDetect < 1){
                             cpb.sendJavascript("noface");
                         }else{
-                            //imageName += "Face="+faceDetect;
+                            imageName += "Face="+faceDetect;
 
                             FileOutputStream outStream = null;
                             FileOutputStream outStream2 = null;

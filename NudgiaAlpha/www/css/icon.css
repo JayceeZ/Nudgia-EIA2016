@@ -5,7 +5,8 @@
   font-weight: 400;
   src: local('Material Icons'),
        local('MaterialIcons-Regular'),
-       url('../fonts/material-design-icons/materialDesignIcons.woff2') format('woff2');
+       url('../fonts/material-design-icons/materialDesignIcons.woff2') format('woff2'),
+       url('../fonts/material-design-icons/materialDesignIcons.ttf') format('truetype');
 }
 
 .material-icons {
