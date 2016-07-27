@@ -27,6 +27,7 @@ var picture = {
     if(callback) {
       callback(url);
     }
+    notification.sendNotification();
   },
 
   onError: function(){
