@@ -96,11 +96,10 @@ h1 {
 #app-gallery{
     height: 100%;
     width: 100%;
-    padding: 0 10px;
     overflow-y: auto;
 }
 
-#app-gallery > img {
+#app-gallery img {
     width: 100%;
     margin-top: 10px;
 }

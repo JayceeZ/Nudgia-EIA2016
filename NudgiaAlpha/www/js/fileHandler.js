@@ -52,20 +52,31 @@ var fileHandler = {
       );
     },
 
-  deletePicture:function(filename,successcb){
-    var path = fileHandler.pathPrefix+fileHandler.pictureDir;
+  deletePicture: function(filename, successcb) {
+    log.addLog("Try delete " + filename);
+    var pathImage = fileHandler.pathPrefix + fileHandler.pictureDir;
+    var pathThumb = pathImage + fileHandler.thumbsDir;
+    fileHandler.removeFile(pathImage, filename, function(filename) {
+      fileHandler.removeFile(pathThumb, filename, successcb);
+    });
+  },
+
+  removeFile: function(path, filename, successcb) {
     window.resolveLocalFileSystemURL(path, function(dir) {
       dir.getFile(filename, {create:false}, function(fileEntry) {
-        fileEntry.remove(function(){
+        fileEntry.remove(function() {
           log.addLog("File "+filename+" successfully removed");
-          if(successcb)
-            successcb();
-        },function(error){
+          if(successcb) {
+            successcb(filename);
+          }
+        }, function(error) {
           log.addLogError("Error deleting file "+filename);
-        },function(){
-          log.addLogError("File "+filename+" doesn't exist");
         });
+      }, function() {
+        log.addLogError("File "+filename+" doesn't exist in "+ path);
       });
+    }, function() {
+      log.addLogError("Folder "+path+" doesn't exist");
     });
   }
 

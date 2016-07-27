@@ -35,19 +35,20 @@ var gallery = {
   },
 
   __getImgDOM: function(urlThumb, urlImage, name) {
-    var dom = new Image();
-    dom.classList.add("gallery-picture");
-    dom.src = urlThumb;
-    dom.addEventListener('click', function() {
-      gallery.openModal(urlImage);
+    var div = $('<div class="col s6"></div>');
+    var img = $('<img class="z-depth-1" src="'+urlThumb+'" alt="'+name+'" />');
+    img.on('click', function(evt) {
+      log.addLog("Opening modal for "+name);
+      gallery.openModal(urlImage, name);
     });
-    return dom;
+    div.append(img);
+    return div;
   },
 
-  openModal: function(url) {
+  openModal: function(url, name) {
     gallery.imgModal.attr("src", url);
     log.addLog("Modal for "+url);
-    gallery.addShare(url);
+    gallery.addButtons(url, name);
     gallery.galleryModal.openModal();
   },
 
@@ -62,9 +63,13 @@ var gallery = {
     var ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0);
 
-    var dataURL = canvas.toDataURL("image/jpeg");
+    return canvas.toDataURL("image/jpeg"); //.replace(/^data:image\/(png|jpg);base64,/, "");
+  },
 
-    return dataURL; //.replace(/^data:image\/(png|jpg);base64,/, "");
+  addButtons: function(url, name) {
+    gallery.modalFooter.empty();
+    gallery.addShare(url);
+    gallery.addDelete(name);
   },
 
   addShare: function(url) {
@@ -72,7 +77,15 @@ var gallery = {
     button.on("click", function(evt) {
       sharer.shareFile(url);
     });
-    gallery.modalFooter.empty();
+    gallery.modalFooter.prepend(button);
+  },
+
+  addDelete: function(name) {
+    var button = $('<button id="delete" class="btn">Delete</button>');
+    button.on("click", function(evt) {
+      fileHandler.deletePicture(name, gallery.removePicture);
+      gallery.galleryModal.closeModal();
+    });
     gallery.modalFooter.prepend(button);
   },
 
@@ -87,7 +100,6 @@ var gallery = {
         '<img class="left" src="icons/'+ share +'.svg" />' +
         '</a>';
     }
-    gallery.modalFooter.empty();
     gallery.modalFooter.prepend(buttons);
   },
 
@@ -95,11 +107,17 @@ var gallery = {
     picture.takePicture(gallery.addPicture);
   },
 
+  removePicture: function(name) {
+    log.addLog('Delete '+name);
+    var image = $('[alt=\''+name+'\']');
+    image.remove();
+  },
+
   addPicture: function(urlThumb) {
     log.addLog("Add picture to gallery");
-    var nameSplit = urlThumb.split('/');
+    var urlImage = urlThumb.replace("thumbsPictures/", "");
+    var nameSplit = urlImage.split('/');
     var name = nameSplit.pop();
-    var urlImage = urlThumb.replace("thumbsPictures/Thumbs", "");
     log.addLog(urlImage + " thumb in " + urlThumb);
     gallery.gallerySelector.prepend(gallery.__getImgDOM(urlThumb, urlImage, name));
   }
