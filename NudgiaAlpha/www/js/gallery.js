@@ -23,10 +23,6 @@ var gallery = {
     gallery.imgModal.on("swipeleft", gallery.nextPictureModal);
 
     fileHandler.listPictures(gallery.fillGallery);
-
-    var selfieButton = $("#selfie-button");
-    selfieButton.click(gallery.takeSelfie);
-    selfieButton.attr("display", "block");
   },
 
   fillGallery: function(names) {
@@ -117,17 +113,13 @@ var gallery = {
     return button;
   },
 
-  takeSelfie: function() {
-    picture.takePicture(gallery.addPicture);
-  },
-
   removePicture: function(name) {
     log.addLog('Delete '+name);
     var image = $('[alt=\''+name+'\']');
     image.remove();
     if(!gallery.gallerySelector.find('img').length) {
       gallery.noPicture = true;
-      gallery.gallerySelector.append('<h3 class="z-depth-1 col s12 center">No Pictures Yet</h3>');
+      gallery.gallerySelector.append('<h3 class="white z-depth-1 col s12 center">No Pictures Yet</h3>');
     }
     app.blockUser(false);
   },

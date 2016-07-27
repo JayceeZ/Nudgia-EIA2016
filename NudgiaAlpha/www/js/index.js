@@ -57,8 +57,18 @@ var app = {
     },
 
     fileHandlerInited:function(){
-        gallery.initGallery();
-        nudgiaSensorsHandler.initialize(function(){gallery.takeSelfie(true)},log.addLog);
+      gallery.initGallery();
+      nudgiaSensorsHandler.initialize(function(){app.takeSelfie(true)},log.addLog);
+
+      var selfieButton = $("#selfie-button");
+      selfieButton.click(function() {
+        app.takeSelfie(false, true);
+      });
+      selfieButton.attr("display", "block");
+    },
+
+    takeSelfie: function(faceDetect, silent) {
+      picture.takePicture(gallery.addPicture, faceDetect, !silent);
     },
 
     // Update DOM on a Received Event

@@ -13,7 +13,7 @@ var picture = {
     type: "front" // back or front
   },
 
-  takePicture: function(callback,faceDetect){
+  takePicture: function(callback, faceDetect, notif){
     log.addLog("Take picture");
     app.blockUser(true);
     if(picture.takingPicture == false) {
@@ -24,7 +24,7 @@ var picture = {
         picture.options.name = "NudgiaPicture";
       window.plugins.CameraPictureBackground.takePicture(
         function (url) {
-          picture.onSuccess(url, callback)
+          picture.onSuccess(url, callback, notif)
         },
         picture.onError,
         picture.options
@@ -32,7 +32,7 @@ var picture = {
     }
   },
 
-  onSuccess: function(url, callback){
+  onSuccess: function(url, callback, notif) {
     picture.takingPicture = false;
     if(url == "noface"){
       log.addLog("No face detected");
@@ -43,7 +43,9 @@ var picture = {
       if (callback) {
         callback(filename);
       }
-      notification.sendNotification();
+      if(notif) {
+        notification.sendNotification();
+      }
     }
     app.blockUser(false);
   },
