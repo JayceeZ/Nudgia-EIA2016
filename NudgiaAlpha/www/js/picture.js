@@ -15,6 +15,7 @@ var picture = {
 
   takePicture: function(callback){
     log.addLog("Take picture");
+    app.blockUser(true);
     if(picture.takingPicture == false) {
       picture.takingPicture = true;
       window.plugins.CameraPictureBackground.takePicture(
@@ -40,10 +41,12 @@ var picture = {
       }
       notification.sendNotification();
     }
+    app.blockUser(false);
   },
 
   onError: function(){
     picture.takingPicture = false;
     log.addLogError("Error taking picture");
+    app.blockUser(false);
   }
 };

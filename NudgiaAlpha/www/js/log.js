@@ -10,7 +10,7 @@ var log = {
   initLog:function(){
     log.runLog = true;
     log.logOutput = $("#app-log");
-    $("#app-gallery").height("60%");
+    $("#app-gallery").height("70%");
     log.logOutput.height("30%");
   },
 

@@ -9,13 +9,7 @@ var gallery = {
   modalContent: null,
   currentImageModal: null,
   imgModal: null,
-
-  shareUrls: {
-    show: ['mail', 'facebook', 'twitter'],
-    mail: 'mailto:?body=',
-    facebook: 'https://www.facebook.com/sharer/sharer.php?u=',
-    twitter: 'https://twitter.com/intent/tweet?text='
-  },
+  noPicture: true,
 
   initGallery:function(){
     log.addLog("Init Gallery");
@@ -40,6 +34,10 @@ var gallery = {
     for(var i = 0; i < names.length; i++) {
       gallery.addPicture(names[i]);
     }
+    if(gallery.noPicture) {
+      gallery.gallerySelector.append('<h3 class="white z-depth-1 col s12 center">No Pictures Yet</h3>');
+    }
+    app.blockUser(false);
   },
 
   __getImgDOM: function(urlThumb, urlImage, name) {
@@ -119,20 +117,6 @@ var gallery = {
     return button;
   },
 
-  buildShareButtons: function(url) {
-    var buttons = '';
-    var list = gallery.shareUrls.show;
-    for(var i=0; i < list.length; i++) {
-      var share = list[i];
-      var href = gallery.shareUrls[share] + encodeURIComponent(sharer.defaultShareText + '\n' + url);
-      log.addLog("Url for sharing is " + href);
-      buttons += '<a class="waves-effect waves-light btn" href="' + href + '">' +
-        '<img class="left" src="icons/'+ share +'.svg" />' +
-        '</a>';
-    }
-    gallery.modalFooter.prepend(buttons);
-  },
-
   takeSelfie: function() {
     picture.takePicture(gallery.addPicture);
   },
@@ -141,14 +125,23 @@ var gallery = {
     log.addLog('Delete '+name);
     var image = $('[alt=\''+name+'\']');
     image.remove();
+    if(!gallery.gallerySelector.find('img').length) {
+      gallery.noPicture = true;
+      gallery.gallerySelector.append('<h3 class="z-depth-1 col s12 center">No Pictures Yet</h3>');
+    }
+    app.blockUser(false);
   },
 
   addPicture: function(name) {
     log.addLog("Add picture to gallery");
+    if(gallery.noPicture) {
+      gallery.gallerySelector.empty();
+    }
     var urlImage = fileHandler.pictureDir+name;
     var urlThumb = fileHandler.pictureDir+fileHandler.thumbsDir+name;
     log.addLog(urlImage + " thumb in " + urlThumb);
     gallery.gallerySelector.prepend(gallery.__getImgDOM(urlThumb, urlImage, name));
+    gallery.noPicture = false;
   }
 
 };

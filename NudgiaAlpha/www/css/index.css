@@ -41,6 +41,9 @@ body {
 .app {
     height: 100%;
     width: 100%;
+    margin: 0 !important;
+    background-size: 100%;
+    background: url('../img/logo.png') no-repeat center;
 }
 
 p{
@@ -97,6 +100,7 @@ h1 {
     height: 100%;
     width: 100%;
     overflow-y: auto;
+    background-color: rgba(20, 20, 20, 0.4);
 }
 
 #app-gallery img {
@@ -116,7 +120,23 @@ h1 {
 
 .modal {
     width: 95%;
-    height: 95%;
+    max-height: 95% !important;
+}
+
+.loader-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.loader-container .loader-box {
+    margin: auto;
+}
+
+.hidden {
+    display: none;
 }
 
 #modal-footer .btn {
@@ -127,6 +147,7 @@ h1 {
     position: absolute;
     bottom: 1em;
     right: 1em;
+    z-index: 1;
 }
 
 #app-gallery-modal-img {

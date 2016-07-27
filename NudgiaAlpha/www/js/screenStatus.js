@@ -4,7 +4,7 @@
 
 var screenStatus = {
 
-  screenOn:true,
+  screenON:true,
   screenOncb:null,
   screenOffcb:null,
   log:null,

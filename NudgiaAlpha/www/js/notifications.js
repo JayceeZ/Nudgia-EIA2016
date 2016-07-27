@@ -14,7 +14,7 @@ var notification = {
     log.addLog("Notification sent");
   },
 
-  addListenerToNotification: function(callback) {
+  addListenerToNotifications: function(callback) {
     cordova.plugins.notification.local.on("click", callback);
   }
 };

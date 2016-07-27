@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var DEBUG = true;
+var DEBUG = false;
 
 var app = {
     // Application Constructor
@@ -39,8 +39,21 @@ var app = {
           log.initLog();
           log.addLog("App is started");
       }
+      cordova.plugins.backgroundMode.setDefaults({
+        title: "Nudgia's magic is ON !",
+        text: "You can display the app by clicking me"
+      });
       cordova.plugins.backgroundMode.enable();
       fileHandler.initialize(app.fileHandlerInited);
+    },
+
+    blockUser: function(bool) {
+      var domObject = $('#user-block');
+      if(bool) {
+        domObject.removeClass('hidden');
+      } else {
+        domObject.addClass('hidden');
+      }
     },
 
     fileHandlerInited:function(){
