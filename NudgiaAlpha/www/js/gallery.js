@@ -58,6 +58,11 @@ var gallery = {
     gallery.galleryModal.openModal();
   },
 
+  closeModal: function() {
+    log.addLog("Close gallery modal");
+    gallery.galleryModal.closeModal();
+  },
+
   previousPictureModal: function() {
     log.addLog('Swipe previous');
     var previous = gallery.gallerySelector.prev('[alt="'+gallery.currentImageModal+'"]');

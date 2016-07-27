@@ -58,6 +58,7 @@ var app = {
 
     fileHandlerInited:function(){
       gallery.initGallery();
+      $(document).on("backbutton", gallery.closeModal);
       nudgiaSensorsHandler.initialize(function(){app.takeSelfie(true)},log.addLog);
 
       var selfieButton = $("#selfie-button");
