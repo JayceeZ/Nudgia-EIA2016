@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:rim="http://www.blackberry.com/ns/widgets"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.citronium.lockscreenloggerplugin"
+    version="0.1">
+    <name>Screen</name>
+    <description>LockScreenLoggerCDVPlugin</description>
+    <license>MIT</license>
+    <keywords>lock screen,logger,citronium</keywords>
+    <repo></repo>
+    <issue></issue>
+    
+    <js-module src="www/Screen.js" name="Screen">
+        <clobbers target="Screen" />
+    </js-module>
+    
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Screen">
+                <param name="ios-package" value="Screen"/>
+            </feature>
+        </config-file>
+        
+        <header-file src="src/ios/Screen.h" />
+        <source-file src="src/ios/Screen.m" />
+    </platform>
+
+    <platform name="android">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Screen">
+                <param name="android-package" value="org.apache.cordova.plugin.Screen"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/Screen.java" target-dir="src/org/apache/cordova/screenstatus" />
+    </platform>
+    
+</plugin>

@@ -39,7 +39,9 @@ var app = {
           log.initLog();
           log.addLog("App is started");
       }
+      cordova.plugins.backgroundMode.enable();
       fileHandler.initialize(app.fileHandlerInited);
+      nudgiaSensorsHandler.initialize(gallery.takeSelfie,log.addLog);
     },
 
     fileHandlerInited:function(){
