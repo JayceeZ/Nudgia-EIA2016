@@ -28,6 +28,7 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
+import android.graphics.Matrix;
 
 public class CameraSurfacePreview extends Service {
 	private static Camera camera = null;
@@ -78,6 +79,13 @@ public class CameraSurfacePreview extends Service {
 		wm.addView(preview, params);
 	}
 
+	public static Bitmap rotateBitmap(Bitmap source, float angle)
+    {
+          Matrix matrix = new Matrix();
+          matrix.postRotate(angle);
+          return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+    }
+
 	static SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
 
 		public void surfaceCreated(SurfaceHolder holder) {
@@ -111,61 +119,72 @@ public class CameraSurfacePreview extends Service {
 					public void onPictureTaken(byte[] data, Camera camera) {
                         BitmapFactory.Options opt = new BitmapFactory.Options();
                         opt.inPreferredConfig= Bitmap.Config.RGB_565;
-						Bitmap bitmap = BitmapFactory.decodeByteArray(data , 0, data.length, opt);
+						Bitmap originalbitmap = BitmapFactory.decodeByteArray(data , 0, data.length, opt);
+						if(originalbitmap.getWidth() > originalbitmap.getHeight()){
+						    originalbitmap = rotateBitmap(originalbitmap,-90);
+						}
+						int newHeight = 1280;
+						float scale = ((float)originalbitmap.getHeight())/((float)newHeight);
+						int newWidth = (int)(((float)originalbitmap.getWidth())/scale);
+						Bitmap bitmap = Bitmap.createScaledBitmap(originalbitmap,newWidth,newHeight,false);
 						FaceDetector faceDetector = new FaceDetector(bitmap.getWidth(),bitmap.getHeight(),3);
 						Face faceArray[] = new Face[3];
 
 						int faceDetect = faceDetector.findFaces(bitmap,faceArray);
+                        if(faceDetect < 1){
+                            cpb.sendJavascript("noface");
+                        }else{
+                            //imageName += "Face="+faceDetect;
 
-						imageName += "Face"+faceDetect;
+                            FileOutputStream outStream = null;
+                            FileOutputStream outStream2 = null;
+                            File sdDir = Environment
+                                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                            File pictureFileDir = new File(sdDir,dirName);
 
-						FileOutputStream outStream = null;
-						FileOutputStream outStream2 = null;
-						File sdDir = Environment
-								.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-						File pictureFileDir = new File(sdDir,dirName);
+                            debugMessage("pictureFileDir = "+pictureFileDir);
 
-						debugMessage("pictureFileDir = "+pictureFileDir);
+                            if (!pictureFileDir.exists())
+                                pictureFileDir.mkdir();
 
-						if (!pictureFileDir.exists())
-							pictureFileDir.mkdir();
+                            File compressedFileDir = new File(pictureFileDir,"thumbsPictures");
 
-						File compressedFileDir = new File(pictureFileDir,"thumbsPictures");
+                            if (!compressedFileDir.exists())
+                                compressedFileDir.mkdir();
 
-						if (!compressedFileDir.exists())
-                            compressedFileDir.mkdir();
-						
-						SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmmssSSS");
-						String date = dateFormat.format(new Date());
-						
-						String fullsizefilepath = pictureFileDir.getPath()
-								+ File.separator +imageName+"-"+date+".jpeg";
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+                            String date = dateFormat.format(new Date());
 
-                        String compressedfilepath = compressedFileDir.getPath()
-                        		+ File.separator + "Thumbs"+imageName+"-"+date+".jpeg";
+                            String fullsizefilepath = pictureFileDir.getPath()
+                                    + File.separator +imageName+"-"+date+".jpeg";
 
-						File pictureFile = new File(fullsizefilepath);
-                        File compressedFile = new File(compressedfilepath);
-						try {
-							outStream = new FileOutputStream(pictureFile);
-							//outStream.write(data);
-							//debugMessage("Picture Saved Successfully");
-							bitmap.compress(Bitmap.CompressFormat.JPEG,100,outStream);
-							outStream.close();
-							outStream2 = new FileOutputStream(compressedFile);
-                            bitmap.compress(Bitmap.CompressFormat.JPEG,20,outStream2);
-                            outStream2.close();
-							cpb.sendJavascript(fullsizefilepath);
-						} catch (FileNotFoundException e) {
-							debugMessage(e.getMessage());
-						} catch (IOException e) {
-							debugMessage(e.getMessage());
+                            String compressedfilepath = compressedFileDir.getPath()
+                                    + File.separator + imageName+"-"+date+".jpeg";
+
+                            File pictureFile = new File(fullsizefilepath);
+                            File compressedFile = new File(compressedfilepath);
+                            try {
+                                outStream = new FileOutputStream(pictureFile);
+                                //outStream.write(data);
+                                //debugMessage("Picture Saved Successfully");
+                                bitmap.compress(Bitmap.CompressFormat.JPEG,100,outStream);
+                                outStream.close();
+                                outStream2 = new FileOutputStream(compressedFile);
+                                bitmap.compress(Bitmap.CompressFormat.JPEG,20,outStream2);
+                                outStream2.close();
+                                cpb.sendJavascript(fullsizefilepath);
+                            } catch (FileNotFoundException e) {
+                                debugMessage(e.getMessage());
+                            } catch (IOException e) {
+                                debugMessage(e.getMessage());
+                            }
+
 						}
 						if (camera != null) {
-							camera.stopPreview();
-							camera.release();
-							camera = null;
-						}
+                            camera.stopPreview();
+                            camera.release();
+                            camera = null;
+                        }
 					}
 				});
 			} catch (Exception e) {

@@ -4,6 +4,8 @@
 
 var picture = {
 
+  takingPicture:false,
+
   options :{
     name:"NudgiaPicture",
     dirName: "Nudgia", //  (DO NOT CHANGE hardcoded in the plugin)
@@ -13,24 +15,33 @@ var picture = {
 
   takePicture: function(callback){
     log.addLog("Take picture");
-    window.plugins.CameraPictureBackground.takePicture(
-      function(url) {
-        picture.onSuccess(url, callback)
-      },
-      picture.onError,
-      picture.options
-    );
+    if(picture.takingPicture == false) {
+      picture.takingPicture = true;
+      window.plugins.CameraPictureBackground.takePicture(
+        function (url) {
+          picture.onSuccess(url, callback)
+        },
+        picture.onError,
+        picture.options
+      );
+    }
   },
 
   onSuccess: function(url, callback){
-    log.addLog("Picture taken");
-    if(callback) {
-      callback(url);
+    picture.takingPicture = false;
+    if(url == "noface"){
+      log.addLog("No face detected");
+    }else {
+      log.addLog("Picture taken");
+      if (callback) {
+        callback(url);
+      }
+      notification.sendNotification();
     }
-    notification.sendNotification();
   },
 
   onError: function(){
+    picture.takingPicture = false;
     log.addLogError("Error taking picture");
   }
 };

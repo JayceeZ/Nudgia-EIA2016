@@ -17,9 +17,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import android.os.Environment;
-
 public class CameraPictureBackground extends CordovaPlugin {
 
 	public static final String TAG = "CameraPictureBackground";
@@ -95,15 +92,6 @@ public class CameraPictureBackground extends CordovaPlugin {
 			});
 			//callbackContext.success();
 			return true;
-		}else if(action.equalsIgnoreCase("getdirurl")){
-		    File sdDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-		    File nudgiaDir = new File(sdDir,"Nudgia");
-		    if (!nudgiaDir.exists())
-                nudgiaDir.mkdir();
-            File thumbsDir = new File(nudgiaDir,"thumbsPictures");
-            if (!thumbsDir.exists())
-                thumbsDir.mkdir();
-		    callbackContext.success(sdDir.getPath());
 		}
 		return true;
 	}
@@ -127,7 +115,7 @@ public class CameraPictureBackground extends CordovaPlugin {
 			return frontCameraID;
 		}
 	}
-	
+
 	public void sendJavascript(String path) {
 		if(path != null)
 		{
