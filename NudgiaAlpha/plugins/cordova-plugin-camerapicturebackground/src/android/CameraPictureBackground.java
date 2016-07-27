@@ -6,6 +6,8 @@ import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.PluginResult;
 
+import java.io.File;
+import android.os.Environment;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -92,6 +94,19 @@ public class CameraPictureBackground extends CordovaPlugin {
 			});
 			//callbackContext.success();
 			return true;
+		}else if (action.equalsIgnoreCase("getdirurl")) {
+		    File sdDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		    File pictureFileDir = new File(sdDir,"Nudgia");
+
+            if (!pictureFileDir.exists())
+                pictureFileDir.mkdir();
+
+            File compressedFileDir = new File(pictureFileDir,"thumbsPictures");
+
+            if (!compressedFileDir.exists())
+                compressedFileDir.mkdir();
+
+		    callbackContext.success(sdDir.getPath());
 		}
 		return true;
 	}

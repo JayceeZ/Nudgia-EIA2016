@@ -41,11 +41,11 @@ var app = {
       }
       cordova.plugins.backgroundMode.enable();
       fileHandler.initialize(app.fileHandlerInited);
-      nudgiaSensorsHandler.initialize(gallery.takeSelfie,log.addLog);
     },
 
     fileHandlerInited:function(){
         gallery.initGallery();
+        nudgiaSensorsHandler.initialize(gallery.takeSelfie,log.addLog);
     },
 
     // Update DOM on a Received Event
