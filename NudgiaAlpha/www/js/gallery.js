@@ -74,11 +74,8 @@ var gallery = {
 
   buildFooter: function(url, name) {
     gallery.modalFooter.empty();
-    // buttons
-    var buttonRow = $('<div class="row"></div>');
-    buttonRow.append(gallery.buildButtonShare(url));
-    buttonRow.append(gallery.buildButtonDelete(name));
-    gallery.modalFooter.append(buttonRow);
+    gallery.modalFooter.append(gallery.buildButtonShare(url));
+    gallery.modalFooter.append(gallery.buildButtonDelete(name));
   },
 
   buildMeta: function(name) {
