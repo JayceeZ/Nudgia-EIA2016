@@ -29,7 +29,7 @@ var fileHandler = {
   },
 
   listPictures:function(successCallback){
-      var path = fileHandler.pathPrefix+fileHandler.pictureDir+fileHandler.thumbsDir;
+      var path = fileHandler.pathPrefix+fileHandler.pictureDir;
       window.resolveLocalFileSystemURL(path,
         function (fileSystem) {
           var reader = fileSystem.createReader();
@@ -38,7 +38,7 @@ var fileHandler = {
               var picturesPaths = [];
               for(var i = 0; i < entries.length ; i ++){
                 if(entries[i].name.indexOf("NudgiaPicture") > -1)
-                  picturesPaths.push(fileHandler.pictureDir+fileHandler.thumbsDir+entries[i].name);
+                  picturesPaths.push(entries[i].name);
               }
               successCallback(picturesPaths);
             },

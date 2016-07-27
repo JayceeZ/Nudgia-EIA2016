@@ -7,6 +7,8 @@ var gallery = {
   galleryModal: null,
   modalFooter: null,
   modalContent: null,
+  currentImageModal: null,
+  imgModal: null,
 
   shareUrls: {
     show: ['mail', 'facebook', 'twitter'],
@@ -21,6 +23,10 @@ var gallery = {
     gallery.galleryModal = $("#app-gallery-modal");
     gallery.modalFooter = gallery.galleryModal.find("#modal-footer");
     gallery.modalContent = gallery.galleryModal.find("#modal-content");
+    gallery.imgModal = gallery.modalContent.find('#app-gallery-modal-img');
+
+    gallery.imgModal.on("swiperight", gallery.previousPictureModal);
+    gallery.imgModal.on("swipeleft", gallery.nextPictureModal);
 
     fileHandler.listPictures(gallery.fillGallery);
 
@@ -29,10 +35,10 @@ var gallery = {
     selfieButton.attr("display", "block");
   },
 
-  fillGallery: function(urls) {
+  fillGallery: function(names) {
     log.addLog("Filling gallery");
-    for(var i = 0; i < urls.length; i++) {
-      gallery.addPicture(urls[i]);
+    for(var i = 0; i < names.length; i++) {
+      gallery.addPicture(names[i]);
     }
   },
 
@@ -49,13 +55,24 @@ var gallery = {
 
   openModal: function(url, name) {
     log.addLog("Modal for " + url);
-    var imgModal = gallery.modalContent.find('#app-gallery-modal-img');
-    imgModal.attr("src", url);
+    gallery.currentImageModal = name;
+    gallery.imgModal.attr("src", url);
     // meta
     var metaImgModal = gallery.modalContent.find('#meta');
     metaImgModal.text(gallery.buildMeta(name));
     gallery.buildFooter(url, name);
     gallery.galleryModal.openModal();
+  },
+
+  previousPictureModal: function() {
+    log.addLog('Swipe previous');
+    var previous = gallery.gallerySelector.prev('[alt="'+gallery.currentImageModal+'"]');
+    log.addLog(previous.attr('src'));
+  },
+
+  nextPictureModal: function() {
+    log.addLog('Swipe next');
+
   },
 
   getImageDataURL: function() {
@@ -126,11 +143,10 @@ var gallery = {
     image.remove();
   },
 
-  addPicture: function(urlThumb) {
+  addPicture: function(name) {
     log.addLog("Add picture to gallery");
-    var urlImage = urlThumb.replace("thumbsPictures/", "");
-    var nameSplit = urlImage.split('/');
-    var name = nameSplit.pop();
+    var urlImage = fileHandler.pictureDir+name;
+    var urlThumb = fileHandler.pictureDir+fileHandler.thumbsDir+name;
     log.addLog(urlImage + " thumb in " + urlThumb);
     gallery.gallerySelector.prepend(gallery.__getImgDOM(urlThumb, urlImage, name));
   }
