@@ -33,8 +33,10 @@ var picture = {
       log.addLog("No face detected");
     }else {
       log.addLog("Picture taken");
+      var tokens = url.split('/');
+      var filename = tokens[tokens.length - 1];
       if (callback) {
-        callback(url);
+        callback(filename);
       }
       notification.sendNotification();
     }
