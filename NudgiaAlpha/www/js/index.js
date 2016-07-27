@@ -58,7 +58,7 @@ var app = {
 
     fileHandlerInited:function(){
         gallery.initGallery();
-        nudgiaSensorsHandler.initialize(gallery.takeSelfie,log.addLog);
+        nudgiaSensorsHandler.initialize(function(){gallery.takeSelfie(true)},log.addLog);
     },
 
     // Update DOM on a Received Event

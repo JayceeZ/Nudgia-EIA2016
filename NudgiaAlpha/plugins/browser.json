@@ -7,17 +7,41 @@
         "files": {}
     },
     "installed_plugins": {
+        "cordova-plugin-background-mode": {
+            "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
+        },
         "cordova-plugin-camerapicturebackground": {
+            "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
+        },
+        "cordova-plugin-device-motion": {
             "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
         },
         "cordova-plugin-file": {
             "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
         },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
+        },
         "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
+        },
+        "cordova-plugin-x-socialsharing": {
+            "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
             "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
         }
     },
     "dependent_plugins": {
+        "com.citronium.lockscreenloggerplugin": {
+            "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
+        },
+        "cordova-plugin-app-event": {
+            "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
+        },
         "cordova-plugin-compat": {
             "PACKAGE_NAME": "com.nudgia.nudgiaalpha"
         }
