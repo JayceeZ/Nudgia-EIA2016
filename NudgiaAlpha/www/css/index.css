@@ -39,8 +39,8 @@ body {
 
 /* Portrait layout (default) */
 .app {
-    height:100%;
-    width:100%;
+    height: 100%;
+    width: 100%;
 }
 
 p{
@@ -81,13 +81,13 @@ h1 {
     50% { opacity: 0.4; }
     to { opacity: 1.0; }
 }
- 
+
 @-webkit-keyframes fade {
     from { opacity: 1.0; }
     50% { opacity: 0.4; }
     to { opacity: 1.0; }
 }
- 
+
 .blink {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
@@ -112,6 +112,15 @@ h1 {
 
 .log-error{
     color: red;
+}
+
+.modal {
+    width: 95%;
+    height: 95%;
+}
+
+#modal-footer .btn {
+    margin: 4px;
 }
 
 #selfie-button {

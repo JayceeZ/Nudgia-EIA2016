@@ -32,30 +32,28 @@
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
         <link rel="stylesheet" type="text/css" href="css/icon.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>Nudgia</title>
     </head>
     <body>
         <!-- Modal Gallery -->
         <div id="app-gallery-modal" class="modal modal-fixed-footer">
-            <div class="modal-content">
-                <img id="app-gallery-modal-img" src="" alt="Error loading picture" />
+            <div id="modal-content" class="modal-content">
+                <div class="row">
+                    <img id="app-gallery-modal-img" src="" alt="Error loading picture" />
+                </div>
+                <div id="meta" class="row center"></div>
             </div>
-            <div id="modal-footer" class="modal-footer">
-            </div>
+            <div id="modal-footer" class="modal-footer"></div>
         </div>
         <div class="app row">
             <a id="selfie-button" class="btn-floating btn-large waves-effect waves-light red">
                 <i class="material-icons">photo_camera</i>
             </a>
-            <div id="app-gallery">
-
-            </div>
-            <div id="app-log">
-
-            </div>
+            <div id="app-gallery"></div>
+            <div id="app-log"></div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/dependencies/jquery.min.js"></script>

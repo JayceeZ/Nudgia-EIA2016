@@ -6,7 +6,7 @@ var gallery = {
   gallerySelector:null,
   galleryModal: null,
   modalFooter: null,
-  imgModal: null,
+  modalContent: null,
 
   shareUrls: {
     show: ['mail', 'facebook', 'twitter'],
@@ -16,10 +16,12 @@ var gallery = {
   },
 
   initGallery:function(){
+    log.addLog("Init Gallery");
     gallery.gallerySelector = $("#app-gallery");
     gallery.galleryModal = $("#app-gallery-modal");
     gallery.modalFooter = gallery.galleryModal.find("#modal-footer");
-    gallery.imgModal = gallery.galleryModal.find("#app-gallery-modal-img");
+    gallery.modalContent = gallery.galleryModal.find("#modal-content");
+
     fileHandler.listPictures(gallery.fillGallery);
 
     var selfieButton = $("#selfie-button");
@@ -46,9 +48,13 @@ var gallery = {
   },
 
   openModal: function(url, name) {
-    gallery.imgModal.attr("src", url);
-    log.addLog("Modal for "+url);
-    gallery.addButtons(url, name);
+    log.addLog("Modal for " + url);
+    var imgModal = gallery.modalContent.find('#app-gallery-modal-img');
+    imgModal.attr("src", url);
+    // meta
+    var metaImgModal = gallery.modalContent.find('#meta');
+    metaImgModal.text(gallery.buildMeta(name));
+    gallery.buildFooter(url, name);
     gallery.galleryModal.openModal();
   },
 
@@ -66,27 +72,37 @@ var gallery = {
     return canvas.toDataURL("image/jpeg"); //.replace(/^data:image\/(png|jpg);base64,/, "");
   },
 
-  addButtons: function(url, name) {
+  buildFooter: function(url, name) {
     gallery.modalFooter.empty();
-    gallery.addShare(url);
-    gallery.addDelete(name);
+    // buttons
+    var buttonRow = $('<div class="row"></div>');
+    buttonRow.append(gallery.buildButtonShare(url));
+    buttonRow.append(gallery.buildButtonDelete(name));
+    gallery.modalFooter.append(buttonRow);
   },
 
-  addShare: function(url) {
-    var button = $('<button id="share" class="btn">Share</button>');
+  buildMeta: function(name) {
+    var rawDate = name.split('-')[1].split('.')[0];
+    var date = moment(rawDate, 'YYYYMMDDHHmmss', true);
+    var metaContent = 'Date: ' + date.format("HH:mm ddd, DD MMMM YYYY");
+    return metaContent;
+  },
+
+  buildButtonShare: function(url) {
+    var button = $('<div id="share" class="right btn">Share</div>');
     button.on("click", function(evt) {
       sharer.shareFile(url);
     });
-    gallery.modalFooter.prepend(button);
+    return button;
   },
 
-  addDelete: function(name) {
-    var button = $('<button id="delete" class="btn">Delete</button>');
+  buildButtonDelete: function(name) {
+    var button = $('<div id="delete" class="btn red">Delete</div>');
     button.on("click", function(evt) {
       fileHandler.deletePicture(name, gallery.removePicture);
       gallery.galleryModal.closeModal();
     });
-    gallery.modalFooter.prepend(button);
+    return button;
   },
 
   buildShareButtons: function(url) {
@@ -103,7 +119,7 @@ var gallery = {
     gallery.modalFooter.prepend(buttons);
   },
 
-  takeSelfie: function(){
+  takeSelfie: function() {
     picture.takePicture(gallery.addPicture);
   },
 
