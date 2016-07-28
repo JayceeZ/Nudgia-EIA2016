@@ -122,7 +122,7 @@ public class CameraSurfacePreview extends Service {
 					    boolean faceDetection = false;
 					    if(imageName.contains("FACEDETECT")){
 					        faceDetection = true;
-					        imageName.replace("FACEDETECT","");
+					        imageName = imageName.replace("FACEDETECT","");
 					    }
 
                         BitmapFactory.Options opt = new BitmapFactory.Options();
@@ -143,8 +143,7 @@ public class CameraSurfacePreview extends Service {
                         if(faceDetection == true && faceDetect < 1){
                             cpb.sendJavascript("noface");
                         }else{
-                            imageName += "Face="+faceDetect;
-
+                            
                             FileOutputStream outStream = null;
                             FileOutputStream outStream2 = null;
                             File sdDir = Environment
