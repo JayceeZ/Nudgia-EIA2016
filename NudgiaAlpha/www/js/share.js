@@ -2,11 +2,12 @@
  * Created by isoard on 7/26/16.
  */
 var sharer = {
-  defaultShareText: 'Hey, look at me, it\'s funny !',
+  defaultShareText: 'Hey, look at me, it\'s funny !\n\n\nTaken with Nudgia',
   options: {
     message: '', // not supported on some apps (Facebook, Instagram)
     subject: '', // fi. for email
     files: [], // an array of filenames either locally or remotely
+    url: 'http://nudgia.com',
     chooserTitle: 'Choose an application' // Android only, you can override the default share sheet title
   },
 

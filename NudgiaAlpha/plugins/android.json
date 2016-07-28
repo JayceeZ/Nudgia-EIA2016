@@ -103,7 +103,7 @@
                     ],
                     "/manifest": [
                         {
-                            "xml": "<uses-permission android:name=\"android.permission.RECORD_VIDEO\" />",
+                            "xml": "<uses-permission android:name=\"android.permission.RECORD_VIDEO\" android:required=\"false\" />",
                             "count": 1
                         },
                         {
@@ -123,11 +123,11 @@
                             "count": 1
                         },
                         {
-                            "xml": "<uses-feature android:name=\"android.hardware.camera.autofocus\" />",
+                            "xml": "<uses-feature android:name=\"android.hardware.camera.autofocus\" android:required=\"false\" />",
                             "count": 1
                         },
                         {
-                            "xml": "<uses-feature android:name=\"android.hardware.camera.setParameters\" />",
+                            "xml": "<uses-feature android:name=\"android.hardware.camera.setParameters\" android:required=\"false\" />",
                             "count": 1
                         },
                         {
